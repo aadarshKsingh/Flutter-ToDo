@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class tasksList extends ChangeNotifier {
   List<String> _taskList = [];
@@ -25,6 +26,7 @@ class tasksList extends ChangeNotifier {
     _taskList.removeAt(index);
     _taskDescList.removeAt(index);
     _taskDateTime.removeAt(index);
+    Fluttertoast.showToast(msg: "Task Removed", gravity: ToastGravity.BOTTOM);
     notifyListeners();
   }
 
