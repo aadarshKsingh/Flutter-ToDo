@@ -78,6 +78,10 @@ class _taskPageState extends State<taskPage> {
                                         (index + 1).toString(),
                                       ),
                                     ),
+                                    trailing: Text(
+                                      value.getDateTime[index],
+                                      style: TextStyle(fontSize: 13),
+                                    ),
                                     title: Text(value.getTaskList[index]),
                                   )
                                 : ExpansionTile(
@@ -86,6 +90,10 @@ class _taskPageState extends State<taskPage> {
                                             EdgeInsets.fromLTRB(10, 3, 0, 0),
                                         child: Text((index + 1).toString())),
                                     title: Text(value.getTaskList[index]),
+                                    trailing: Text(
+                                      value.getDateTime[index],
+                                      style: TextStyle(fontSize: 13),
+                                    ),
                                     children: [
                                       Container(
                                         height: 40,
