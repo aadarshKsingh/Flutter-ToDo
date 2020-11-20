@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
-
 import 'tasksList.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class taskPage extends StatefulWidget {
   @override
@@ -12,7 +14,19 @@ class taskPage extends StatefulWidget {
 class _taskPageState extends State<taskPage> {
   @override
   void initState() {
+    checkPermission();
     super.initState();
+  }
+
+  Future<PermissionStatus> checkPermission() async {
+    if (await Permission.storage.isDenied == true ||
+        await Permission.storage.isUndetermined) {
+      await Permission.storage.request();
+      if (await Permission.storage.isGranted == false) {
+        Fluttertoast.showToast(msg: "Request for storage denied");
+        SystemNavigator.pop();
+      }
+    }
   }
 
   @override
