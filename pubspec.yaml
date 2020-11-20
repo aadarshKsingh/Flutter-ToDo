@@ -31,6 +31,8 @@ dependencies:
   fluttertoast: ^7.1.1
   provider: ^4.3.2+2
   intl:
+  permission_handler:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
