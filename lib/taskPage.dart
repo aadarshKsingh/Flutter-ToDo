@@ -74,7 +74,7 @@ class _taskPageState extends State<taskPage> {
                           ),
                         ),
                       ),
-                      key: ValueKey(value.getTaskList),
+                      key: ValueKey(value.getTaskList[index]),
                       onDismissed: (direction) {
                         Provider.of<tasksList>(context, listen: false)
                             .removeTaskValue(index);
