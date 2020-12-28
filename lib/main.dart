@@ -54,6 +54,16 @@ class _letsdoitState extends State<letsdoit> {
             Consumer<tasksList>(
               builder: (context, value, child) {
                 return IconButton(
+                    icon: Icon(Icons.done_all_rounded),
+                    onPressed: () {
+                      Provider.of<tasksList>(context, listen: false)
+                          .allTasksDone();
+                    });
+              },
+            ),
+            Consumer<tasksList>(
+              builder: (context, value, child) {
+                return IconButton(
                     icon: Icon(Icons.clear_all_rounded),
                     onPressed: () {
                       Provider.of<tasksList>(context, listen: false)
