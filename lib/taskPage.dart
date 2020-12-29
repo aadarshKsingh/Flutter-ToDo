@@ -85,42 +85,98 @@ class _taskPageState extends State<taskPage> {
                               EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                           elevation: 3,
                           child: value.getTaskDescList[index].isEmpty
-                              ? ListTile(
-                                  leading: Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 3, 0, 0),
-                                    child: Text(
-                                      (index + 1).toString(),
-                                    ),
-                                  ),
-                                  trailing: Text(
-                                    value.getDateTime[index],
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  title: Text(value.getTaskList[index]),
-                                )
-                              : ExpansionTile(
-                                  leading: Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 3, 0, 0),
-                                      child: Text((index + 1).toString())),
-                                  title: Text(value.getTaskList[index]),
-                                  trailing: Text(
-                                    value.getDateTime[index],
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: double.infinity,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 72),
-                                        child: Text(
-                                          value.getTaskDescList[index],
-                                          textAlign: TextAlign.start,
-                                        ),
+                              ? value.getStatus[index] == false
+                                  ? ListTile(
+                                      leading: Checkbox(
+                                          value: value.getStatus[index],
+                                          onChanged: (value) {
+                                            Provider.of<tasksList>(context,
+                                                    listen: false)
+                                                .changeStatus(value, index);
+                                          }),
+                                      trailing: Text(
+                                        value.getDateTime[index],
+                                        style: TextStyle(fontSize: 13),
                                       ),
-                                    ),
-                                  ],
-                                )),
+                                      title: Text(value.getTaskList[index]),
+                                    )
+                                  : ListTile(
+                                      leading: Checkbox(
+                                          value: value.getStatus[index],
+                                          onChanged: (value) {
+                                            Provider.of<tasksList>(context,
+                                                    listen: false)
+                                                .changeStatus(value, index);
+                                          }),
+                                      trailing: Text(
+                                        value.getDateTime[index],
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                      title: Text(
+                                        value.getTaskList[index],
+                                        style: TextStyle(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                        ),
+                                      ))
+                              : value.getStatus[index] == false
+                                  ? ExpansionTile(
+                                      leading: Checkbox(
+                                          value: value.getStatus[index],
+                                          onChanged: (value) {
+                                            Provider.of<tasksList>(context,
+                                                    listen: false)
+                                                .changeStatus(value, index);
+                                          }),
+                                      title: Text(value.getTaskList[index]),
+                                      trailing: Text(
+                                        value.getDateTime[index],
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                      children: [
+                                        Container(
+                                          height: 40,
+                                          width: double.infinity,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(left: 72),
+                                            child: Text(
+                                              value.getTaskDescList[index],
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : ExpansionTile(
+                                      leading: Checkbox(
+                                          value: value.getStatus[index],
+                                          onChanged: (value) {
+                                            Provider.of<tasksList>(context,
+                                                    listen: false)
+                                                .changeStatus(value, index);
+                                          }),
+                                      title: Text(value.getTaskList[index],
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.lineThrough)),
+                                      trailing: Text(
+                                        value.getDateTime[index],
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                      children: [
+                                        Container(
+                                          height: 40,
+                                          width: double.infinity,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(left: 72),
+                                            child: Text(
+                                              value.getTaskDescList[index],
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
                     );
                   });
           }),
