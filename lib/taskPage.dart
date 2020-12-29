@@ -138,7 +138,7 @@ class _taskPageState extends State<taskPage> {
                                           height: 40,
                                           width: double.infinity,
                                           child: Padding(
-                                            padding: EdgeInsets.only(left: 72),
+                                            padding: EdgeInsets.only(left: 80),
                                             child: Text(
                                               value.getTaskDescList[index],
                                               textAlign: TextAlign.start,
@@ -168,7 +168,7 @@ class _taskPageState extends State<taskPage> {
                                           height: 40,
                                           width: double.infinity,
                                           child: Padding(
-                                            padding: EdgeInsets.only(left: 72),
+                                            padding: EdgeInsets.only(left: 80),
                                             child: Text(
                                               value.getTaskDescList[index],
                                               textAlign: TextAlign.start,
