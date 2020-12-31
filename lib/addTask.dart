@@ -8,10 +8,7 @@ class addTask extends StatefulWidget {
   _addTaskState createState() => _addTaskState();
 }
 
-List<String> pendingTasks = [];
-
 _updateTasks(String title, String subtitle, BuildContext context) {
-  // pendingTasks.add(value);
   Provider.of<tasksList>(context, listen: false).addtaskValue(title, subtitle);
 }
 
