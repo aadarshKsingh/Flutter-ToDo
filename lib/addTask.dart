@@ -117,6 +117,18 @@ class _addTaskState extends State<addTask> {
                                   width: 2),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.6),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.6),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             labelText: "Task Title",
                             hintText: "Enter your task",
                             hintStyle: TextStyle(color: Colors.white),
