@@ -99,6 +99,11 @@ class _addTaskState extends State<addTask> {
                           validator: (value) {
                             if (value.isEmpty)
                               return "Please enter some text";
+                            else if (Provider.of<tasksList>(context,
+                                    listen: false)
+                                .getTaskList
+                                .contains(value))
+                              return "Task already Added";
                             else
                               return null;
                           },
