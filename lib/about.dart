@@ -7,6 +7,9 @@ class about extends StatelessWidget {
       theme: ThemeData(fontFamily: 'OnePlusSans'),
       home: Scaffold(
         appBar: AppBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -14,7 +17,7 @@ class about extends StatelessWidget {
             },
           ),
           title: Text("About"),
-          backgroundColor: Color.fromRGBO(176, 0, 32, 1),
+          backgroundColor: Color(0xFFe53935),
         ),
         body: Center(
           child: Column(

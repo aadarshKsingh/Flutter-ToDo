@@ -49,7 +49,7 @@ class tasksList extends ChangeNotifier {
   }
 
   changeStatus(value, index) {
-    _taskStatus[index] = value;
+    _taskStatus[index] = !_taskStatus[index];
     clearJSON();
     writeContent();
     notifyListeners();

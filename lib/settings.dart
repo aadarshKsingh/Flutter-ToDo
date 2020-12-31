@@ -7,6 +7,8 @@ class settings extends StatelessWidget {
       theme: ThemeData(fontFamily: 'OnePlusSans'),
       home: Scaffold(
         appBar: AppBar(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -14,7 +16,7 @@ class settings extends StatelessWidget {
             },
           ),
           title: Text("Settings"),
-          backgroundColor: Color.fromRGBO(176, 0, 32, 1),
+          backgroundColor: Color(0xFFe53935),
         ),
         body: Center(
           child: ElevatedButton(

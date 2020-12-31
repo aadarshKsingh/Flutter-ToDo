@@ -21,86 +21,198 @@ class _taskPageState extends State<taskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [
-        Expanded(
-          child: Consumer<tasksList>(builder: (context, value, child) {
-            if (value.getTaskList.length == 0)
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '  ( ╯° - ° ) ╯',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+    return Container(
+      padding: EdgeInsets.only(
+        top: 5,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Color(0xFFff9966),
+          Color(0xFFff5e62),
+        ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(children: [
+            Expanded(
+              child: Consumer<tasksList>(builder: (context, value, child) {
+                if (value.getTaskList.length == 0)
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '  ( ╯° - ° ) ╯',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 40),
+                        ),
+                        Text(
+                          "You are free as a bird",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        )
+                      ],
                     ),
-                    Text(
-                      "You are free as a bird",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    )
-                  ],
-                ),
-              );
-            else
-              return ListView.builder(
-                  itemCount: value.getTaskList.length,
-                  itemBuilder: (context, index) {
-                    return Dismissible(
-                      dismissThresholds: {
-                        DismissDirection.startToEnd: 0.7,
-                        DismissDirection.endToStart: 0.7
-                      },
-                      background: Container(
-                        color: Colors.redAccent,
-                        child: Padding(
-                          child: Text(
-                            "Remove Task",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
+                  );
+                else
+                  return ListView.builder(
+                      itemCount: value.getTaskList.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          dismissThresholds: {
+                            DismissDirection.startToEnd: 0.7,
+                            DismissDirection.endToStart: 0.7
+                          },
+                          background: Padding(
+                            child: Text(
+                              "Remove Task",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            padding: EdgeInsets.fromLTRB(40, 40, 260, 0),
                           ),
-                          padding: EdgeInsets.fromLTRB(30, 20, 260, 0),
-                        ),
-                      ),
-                      secondaryBackground: Container(
-                        color: Colors.redAccent,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(280, 20, 0, 0),
-                          child: Text(
-                            "Remove Task",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
+                          secondaryBackground: Padding(
+                            padding: EdgeInsets.fromLTRB(300, 40, 0, 0),
+                            child: Text(
+                              "Remove Task",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
                           ),
-                        ),
-                      ),
-                      key: ValueKey(value.getTaskList[index]),
-                      onDismissed: (direction) {
-                        Provider.of<tasksList>(context, listen: false)
-                            .removeTaskValue(index);
-                      },
-                      child: Card(
-                          color: Colors.redAccent.shade50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                          elevation: 3,
-                          child: value.getTaskDescList[index].isEmpty
-                              ? value.getStatus[index] == false
+                          key: ValueKey(value.getTaskList[index]),
+                          onDismissed: (direction) {
+                            Provider.of<tasksList>(context, listen: false)
+                                .removeTaskValue(index);
+                          },
+                          child: Container(
+                            height: 100,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 0.2),
+                              elevation: 3,
+                              child: value.getStatus[index] == false
                                   ? ListTile(
+                                      contentPadding:
+                                          EdgeInsets.only(top: 20, left: 10),
                                       leading: Checkbox(
+                                          checkColor: Colors.redAccent,
                                           value: value.getStatus[index],
                                           onChanged: (value) {
                                             Provider.of<tasksList>(context,
                                                     listen: false)
                                                 .changeStatus(value, index);
                                           }),
-                                      trailing: Text(
-                                        value.getDateTime[index],
-                                        style: TextStyle(fontSize: 13),
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => SimpleDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    title: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .description_rounded,
+                                                        ),
+                                                        Center(
+                                                          child: Text(
+                                                              "Task Details"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 15,
+                                                                vertical: 10),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                    "Task Title       :     "),
+                                                                Text(value
+                                                                        .getTaskList[
+                                                                    index])
+                                                              ],
+                                                            ),
+                                                            Row(children: [
+                                                              Text(
+                                                                  'Task Done     :     '),
+                                                              Text(value
+                                                                  .getStatus[
+                                                                      index]
+                                                                  .toString()),
+                                                            ]),
+                                                            Row(children: [
+                                                              Text(
+                                                                  'Description   :   '),
+                                                              value
+                                                                      .getTaskDescList[
+                                                                          index]
+                                                                      .isEmpty
+                                                                  ? Text("NA")
+                                                                  : Flexible(
+                                                                      child: Text(
+                                                                          value.getTaskDescList[
+                                                                              index]),
+                                                                    )
+                                                            ]),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ]));
+                                      },
+                                      trailing: Container(
+                                        child: Card(
+                                          margin: EdgeInsets.only(right: 30),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          color:
+                                              Color.fromRGBO(219, 219, 219, 30),
+                                          child: Container(
+                                            height: 60,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 5),
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 5,
+                                              horizontal: 10,
+                                            ),
+                                            child: Text(
+                                              value.getDateTime[index],
+                                              style: TextStyle(fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      title: Text(value.getTaskList[index]),
+                                      title: Text(
+                                        value.getTaskList[index],
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                     )
                                   : ListTile(
+                                      contentPadding: EdgeInsets.only(
+                                          top: 20,
+                                          // bottom: 10,
+                                          left: 10),
                                       leading: Checkbox(
                                           value: value.getStatus[index],
                                           onChanged: (value) {
@@ -108,80 +220,174 @@ class _taskPageState extends State<taskPage> {
                                                     listen: false)
                                                 .changeStatus(value, index);
                                           }),
-                                      trailing: Text(
-                                        value.getDateTime[index],
-                                        style: TextStyle(fontSize: 13),
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => SimpleDialog(
+                                                    title: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .description_rounded,
+                                                        ),
+                                                        Center(
+                                                            child: Text(
+                                                                "Task Details")),
+                                                      ],
+                                                    ),
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 15,
+                                                                vertical: 10),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                    "Task Title       :     "),
+                                                                Text(value
+                                                                        .getTaskList[
+                                                                    index])
+                                                              ],
+                                                            ),
+                                                            Row(children: [
+                                                              Text(
+                                                                  'Task Done     :     '),
+                                                              Text(value
+                                                                  .getStatus[
+                                                                      index]
+                                                                  .toString()),
+                                                            ]),
+                                                            Row(children: [
+                                                              Text(
+                                                                  'Description   :   '),
+                                                              value
+                                                                      .getTaskDescList[
+                                                                          index]
+                                                                      .isEmpty
+                                                                  ? Text("NA")
+                                                                  : Flexible(
+                                                                      child: Text(
+                                                                          value.getTaskDescList[
+                                                                              index]),
+                                                                    )
+                                                            ]),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ]));
+                                      },
+                                      trailing: Card(
+                                        margin: EdgeInsets.only(right: 30),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        color:
+                                            Color.fromRGBO(219, 219, 219, 30),
+                                        child: Container(
+                                          height: 60,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 5,
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            value.getDateTime[index],
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        ),
                                       ),
                                       title: Text(
                                         value.getTaskList[index],
                                         style: TextStyle(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
-                                      ))
-                              : value.getStatus[index] == false
-                                  ? ExpansionTile(
-                                      leading: Checkbox(
-                                          value: value.getStatus[index],
-                                          onChanged: (value) {
-                                            Provider.of<tasksList>(context,
-                                                    listen: false)
-                                                .changeStatus(value, index);
-                                          }),
-                                      title: Text(value.getTaskList[index]),
-                                      trailing: Text(
-                                        value.getDateTime[index],
-                                        style: TextStyle(fontSize: 13),
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            fontSize: 20),
                                       ),
-                                      children: [
-                                        Container(
-                                          height: 40,
-                                          width: double.infinity,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 80),
-                                            child: Text(
-                                              value.getTaskDescList[index],
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : ExpansionTile(
-                                      leading: Checkbox(
-                                          value: value.getStatus[index],
-                                          onChanged: (value) {
-                                            Provider.of<tasksList>(context,
-                                                    listen: false)
-                                                .changeStatus(value, index);
-                                          }),
-                                      title: Text(value.getTaskList[index],
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough)),
-                                      trailing: Text(
-                                        value.getDateTime[index],
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                      children: [
-                                        Container(
-                                          height: 40,
-                                          width: double.infinity,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 80),
-                                            child: Text(
-                                              value.getTaskDescList[index],
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                    );
-                  });
-          }),
+                                    ),
+                            ),
+                          ),
+                        );
+                      });
+              }),
+            ),
+          ]),
         ),
-      ]),
+      ),
     );
   }
 }
+
+// Column(
+//                                                         mainAxisAlignment:
+//                                                             MainAxisAlignment
+//                                                                 .spaceBetween,
+//                                                         crossAxisAlignment:
+//                                                             CrossAxisAlignment
+//                                                                 .center,
+//                                                         children: [
+//                                                           Container(
+//                                                             child: Row(
+//                                                               mainAxisAlignment:
+//                                                                   MainAxisAlignment
+//                                                                       .start,
+//                                                               children: [
+//                                                                 Text(
+//                                                                     "Task Title : "),
+//                                                                 Text(value
+//                                                                         .getTaskList[
+//                                                                     index])
+//                                                               ],
+//                                                             ),
+//                                                           ),
+//                                                           Container(
+//                                                             child: Row(
+//                                                               children: [
+//                                                                 Text(
+//                                                                     "Task Done : "),
+//                                                                 Center(
+//                                                                   child: Text(
+//                                                                     value
+//                                                                         .getStatus[
+//                                                                             index]
+//                                                                         .toString(),
+//                                                                   ),
+//                                                                 ),
+//                                                               ],
+//                                                             ),
+//                                                           ),
+//                                                           Container(
+//                                                             child: Row(
+//                                                               mainAxisAlignment:
+//                                                                   MainAxisAlignment
+//                                                                       .center,
+//                                                               children: [
+//                                                                 Text(
+//                                                                     "Description : "),
+//                                                                 value
+//                                                                         .getTaskDescList[
+//                                                                             index]
+//                                                                         .isEmpty
+//                                                                     ? Text("NA")
+//                                                                     : Flexible(
+//                                                                         fit: FlexFit
+//                                                                             .loose,
+//                                                                         flex: 4,
+//                                                                         child: Text(
+//                                                                             value.getTaskDescList[index]),
+//                                                                       ),
+//                                                               ],
+//                                                             ),
+//                                                           ),
+//                                                         ],
+//                                                       )
