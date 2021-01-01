@@ -93,7 +93,8 @@ class tasksList extends ChangeNotifier {
       }
       notifyListeners();
     } catch (FileSystemException) {
-      print("tasks.json not found");
+      File file = await _localFile;
+      file.create();
     }
   }
 
