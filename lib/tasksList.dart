@@ -5,12 +5,27 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 class tasksList extends ChangeNotifier {
   List<String> _taskList = [];
   List<bool> _taskStatus = [];
   List<String> _taskDescList = [];
   List<String> _taskDateTime = [];
+
+  static final key = encrypt.Key.fromLength(32);
+  static final iv = encrypt.IV.fromLength(16);
+  static final encrypter = encrypt.Encrypter(encrypt.AES(key));
+
+  _encryptJSON(plainText) {
+    final encrypted = encrypter.encryptBytes(plainText, iv: iv);
+    return encrypted.bytes;
+  }
+
+  _decryptJSON(encText) {
+    encrypt.Encrypted en = encrypt.Encrypted(encText);
+    return encrypter.decryptBytes(en, iv: iv);
+  }
 
   var taskJSON = new Map<String, dynamic>();
   addtaskValue(String title, String subtitle) {
@@ -83,8 +98,8 @@ class tasksList extends ChangeNotifier {
   Future<void> readContent() async {
     try {
       File file = await _localFile;
-      String jsonString = await file.readAsString();
-      var data = jsonDecode(jsonString);
+      var jsonString = await file.readAsBytes();
+      var data = jsonDecode(utf8.decode(_decryptJSON(jsonString)));
       for (int i = 0; i < data['title'].length; i++) {
         _taskList.add(data["title"][i]);
         _taskStatus.add(data["status"][i]);
@@ -98,14 +113,14 @@ class tasksList extends ChangeNotifier {
     }
   }
 
-  Future<File> writeContent() async {
-    final path = await _localFile;
+  Future writeContent() async {
     taskJSON['title'] = _taskList;
     taskJSON['status'] = _taskStatus;
     taskJSON['description'] = _taskDescList;
     taskJSON['dateTime'] = _taskDateTime;
-    String serializedMap = jsonEncode(taskJSON);
-    return path.writeAsString(serializedMap);
+    var serializedMap = _encryptJSON(utf8.encode(jsonEncode(taskJSON)));
+    File f = await _localFile;
+    await f.writeAsBytes(serializedMap);
   }
 
   clearJSON() async {
