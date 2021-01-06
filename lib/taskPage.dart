@@ -192,13 +192,16 @@ class _taskPageState extends State<taskPage> {
                                       },
                                       trailing: Container(
                                         child: Card(
+                                          elevation: 0,
                                           margin: EdgeInsets.only(right: 30),
                                           shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                color: Color(0xFFFFDCDC),
+                                                width: 6),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          color:
-                                              Color.fromRGBO(219, 219, 219, 30),
+                                          color: Color(0xFFFFC5C5),
                                           child: Container(
                                             height: 60,
                                             margin: EdgeInsets.symmetric(
@@ -209,7 +212,9 @@ class _taskPageState extends State<taskPage> {
                                             ),
                                             child: Text(
                                               value.getDateTime[index],
-                                              style: TextStyle(fontSize: 15),
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Color(0xFF1C1C1C)),
                                             ),
                                           ),
                                         ),
@@ -309,13 +314,16 @@ class _taskPageState extends State<taskPage> {
                                                     ]));
                                       },
                                       trailing: Card(
+                                        elevation: 0,
                                         margin: EdgeInsets.only(right: 30),
                                         shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: Color(0xFFFFDCDC),
+                                              width: 6),
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
-                                        color:
-                                            Color.fromRGBO(219, 219, 219, 30),
+                                        color: Color(0xFFFFC5C5),
                                         child: Container(
                                           height: 60,
                                           margin: EdgeInsets.symmetric(
@@ -326,7 +334,9 @@ class _taskPageState extends State<taskPage> {
                                           ),
                                           child: Text(
                                             value.getDateTime[index],
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF1C1C1C)),
                                           ),
                                         ),
                                       ),
