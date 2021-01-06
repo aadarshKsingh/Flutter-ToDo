@@ -63,7 +63,7 @@ class tasksList extends ChangeNotifier {
     return formattedDateTime;
   }
 
-  changeStatus(value, index) {
+  changeStatus(index) {
     _taskStatus[index] = !_taskStatus[index];
     clearJSON();
     writeContent();

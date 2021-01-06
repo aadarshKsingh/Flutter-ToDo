@@ -99,14 +99,25 @@ class _taskPageState extends State<taskPage> {
                                   ? ListTile(
                                       contentPadding:
                                           EdgeInsets.only(top: 20, left: 10),
-                                      leading: Checkbox(
-                                          checkColor: Colors.redAccent,
-                                          value: value.getStatus[index],
-                                          onChanged: (value) {
-                                            Provider.of<tasksList>(context,
-                                                    listen: false)
-                                                .changeStatus(value, index);
-                                          }),
+                                      leading: IconButton(
+                                          icon: Provider.of<tasksList>(context,
+                                                          listen: false)
+                                                      .getStatus[index] ==
+                                                  true
+                                              ? Icon(
+                                                  Icons.check_circle_rounded,
+                                                  size: 27,
+                                                  color: Colors.redAccent,
+                                                )
+                                              : Icon(
+                                                  Icons
+                                                      .check_circle_outline_rounded,
+                                                  size: 27,
+                                                ),
+                                          onPressed: () =>
+                                              Provider.of<tasksList>(context,
+                                                      listen: false)
+                                                  .changeStatus(index)),
                                       onTap: () {
                                         showDialog(
                                             context: context,
@@ -213,13 +224,25 @@ class _taskPageState extends State<taskPage> {
                                           top: 20,
                                           // bottom: 10,
                                           left: 10),
-                                      leading: Checkbox(
-                                          value: value.getStatus[index],
-                                          onChanged: (value) {
-                                            Provider.of<tasksList>(context,
-                                                    listen: false)
-                                                .changeStatus(value, index);
-                                          }),
+                                      leading: IconButton(
+                                          icon: Provider.of<tasksList>(context,
+                                                          listen: false)
+                                                      .getStatus[index] ==
+                                                  true
+                                              ? Icon(
+                                                  Icons.check_circle_rounded,
+                                                  size: 27,
+                                                  color: Colors.redAccent,
+                                                )
+                                              : Icon(
+                                                  Icons
+                                                      .check_circle_outline_rounded,
+                                                  size: 27,
+                                                ),
+                                          onPressed: () =>
+                                              Provider.of<tasksList>(context,
+                                                      listen: false)
+                                                  .changeStatus(index)),
                                       onTap: () {
                                         showDialog(
                                             context: context,
