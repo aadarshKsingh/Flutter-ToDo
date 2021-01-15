@@ -30,7 +30,6 @@ class saveConfig extends ChangeNotifier {
   changeAccent(Color accentColor) {
     accent.clear();
     accent.add(accentColor.toString());
-    configJSON['accent'] = accent;
     writeConfig();
     notifyListeners();
   }
