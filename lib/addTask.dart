@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'tasksList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:letsdoit/saveConfig.dart';
 
 class addTask extends StatefulWidget {
   @override
@@ -18,8 +19,6 @@ class _addTaskState extends State<addTask> {
   final _taskKey = GlobalKey<FormState>();
   @override
   void initState() {
-    // TODO: implement initState
-
     taskContr = TextEditingController();
     taskContr2 = TextEditingController();
     super.initState();
@@ -43,15 +42,18 @@ class _addTaskState extends State<addTask> {
         }
       },
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'OnePlusSans'),
+        theme: ThemeData(
+          fontFamily: 'OnePlusSans',
+          primaryColor: Provider.of<saveConfig>(context).getAccent(),
+        ),
         home: Container(
           padding: EdgeInsets.only(
             top: 5,
           ),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color(0xFFff9966),
-              Color(0xFFff5e62),
+              Provider.of<saveConfig>(context).getGradient()[0],
+              Provider.of<saveConfig>(context).getGradient()[1]
             ], begin: Alignment.bottomLeft, end: Alignment.topRight),
           ),
           child: Scaffold(
@@ -64,11 +66,9 @@ class _addTaskState extends State<addTask> {
                   onPressed: () {
                     Navigator.pop(context);
                   }),
-              backgroundColor: Color(0xFFe53935),
               title: Text(
                 "Add a new task",
-                style: TextStyle(
-                    color: Colors.white.withOpacity(0.6), fontSize: 25),
+                style: TextStyle(fontSize: 25),
               ),
             ),
             body: Form(
@@ -185,7 +185,7 @@ class _addTaskState extends State<addTask> {
                     Center(
                       child: RaisedButton(
                         padding: EdgeInsets.all(0),
-                        color: Colors.redAccent,
+                        color: Provider.of<saveConfig>(context).getAccent(),
                         textColor: Colors.white.withOpacity(0.6),
                         child: Text(
                           "Add",

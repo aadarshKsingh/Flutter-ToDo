@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'tasksList.dart';
+import 'saveConfig.dart';
 
 class taskPage extends StatefulWidget {
   @override
@@ -15,8 +16,14 @@ class _taskPageState extends State<taskPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getData();
+  }
+
+  estimateColor(Color gradient) {
+    if (ThemeData.estimateBrightnessForColor(gradient) == Brightness.dark)
+      return Colors.white;
+    else
+      return Colors.black;
   }
 
   @override
@@ -27,8 +34,8 @@ class _taskPageState extends State<taskPage> {
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
-          Color(0xFFff9966),
-          Color(0xFFff5e62),
+          Provider.of<saveConfig>(context).getGradient()[0],
+          Provider.of<saveConfig>(context).getGradient()[1]
         ], begin: Alignment.bottomLeft, end: Alignment.topRight),
       ),
       child: Scaffold(
@@ -45,12 +52,24 @@ class _taskPageState extends State<taskPage> {
                         Text(
                           '  ( ╯° - ° ) ╯',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 40),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40,
+                              color: estimateColor(Provider.of<saveConfig>(
+                                      context,
+                                      listen: false)
+                                  .getGradient()[0])),
                         ),
                         Text(
                           "You are free as a bird",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25),
+                              letterSpacing: 4,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              fontFamily: 'OnePlusSans',
+                              color: estimateColor(Provider.of<saveConfig>(
+                                      context,
+                                      listen: false)
+                                  .getGradient()[0])),
                         )
                       ],
                     ),
@@ -107,7 +126,10 @@ class _taskPageState extends State<taskPage> {
                                               ? Icon(
                                                   Icons.check_circle_rounded,
                                                   size: 27,
-                                                  color: Colors.redAccent,
+                                                  color:
+                                                      Provider.of<saveConfig>(
+                                                              context)
+                                                          .getAccent(),
                                                 )
                                               : Icon(
                                                   Icons
@@ -196,12 +218,20 @@ class _taskPageState extends State<taskPage> {
                                           margin: EdgeInsets.only(right: 30),
                                           shape: RoundedRectangleBorder(
                                             side: BorderSide(
-                                                color: Color(0xFFFFDCDC),
+                                                color: Provider.of<saveConfig>(
+                                                        context,
+                                                        listen: false)
+                                                    .getGradient()[0]
+                                                    .withOpacity(0.4),
                                                 width: 6),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          color: Color(0xFFFFC5C5),
+                                          color: Provider.of<saveConfig>(
+                                                  context,
+                                                  listen: false)
+                                              .getAccent()
+                                              .withOpacity(0.45),
                                           child: Container(
                                             height: 60,
                                             margin: EdgeInsets.symmetric(
@@ -237,7 +267,10 @@ class _taskPageState extends State<taskPage> {
                                               ? Icon(
                                                   Icons.check_circle_rounded,
                                                   size: 27,
-                                                  color: Colors.redAccent,
+                                                  color:
+                                                      Provider.of<saveConfig>(
+                                                              context)
+                                                          .getAccent(),
                                                 )
                                               : Icon(
                                                   Icons
@@ -318,12 +351,19 @@ class _taskPageState extends State<taskPage> {
                                         margin: EdgeInsets.only(right: 30),
                                         shape: RoundedRectangleBorder(
                                           side: BorderSide(
-                                              color: Color(0xFFFFDCDC),
+                                              color: Provider.of<saveConfig>(
+                                                      context,
+                                                      listen: false)
+                                                  .getGradient()[0]
+                                                  .withOpacity(0.4),
                                               width: 6),
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
-                                        color: Color(0xFFFFC5C5),
+                                        color: Provider.of<saveConfig>(context,
+                                                listen: false)
+                                            .getAccent()
+                                            .withOpacity(0.45),
                                         child: Container(
                                           height: 60,
                                           margin: EdgeInsets.symmetric(

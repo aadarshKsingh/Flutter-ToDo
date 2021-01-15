@@ -6,15 +6,48 @@ import 'package:letsdoit/tasksList.dart';
 import 'Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:letsdoit/saveConfig.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => tasksList())],
-    child: MaterialApp(
-        theme: ThemeData(
-            fontFamily: 'OnePlusSans', accentColor: Color(0xFFe53935)),
-        home: letsdoit()),
-  ));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => tasksList()),
+    ChangeNotifierProvider(create: (_) => saveConfig())
+  ], child: home()));
+}
+
+estimateColor(Color accent) {
+  if (ThemeData.estimateBrightnessForColor(accent) == Brightness.dark)
+    return Colors.white;
+  else
+    return Colors.black;
+}
+
+class home extends StatefulWidget {
+  @override
+  _homeState createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  Future getConfig() async {
+    await Provider.of<saveConfig>(context, listen: false).readConfig();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getConfig();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          fontFamily: 'OnePlusSans',
+          primaryColor: Provider.of<saveConfig>(context).getAccent()),
+      home: Scaffold(body: letsdoit()),
+    );
+  }
 }
 
 class letsdoit extends StatefulWidget {
@@ -25,82 +58,82 @@ class letsdoit extends StatefulWidget {
 class _letsdoitState extends State<letsdoit> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Color(0xFFff9966),
-          Color(0xFFff5e62),
-        ], begin: Alignment.bottomLeft, end: Alignment.topRight),
-      ),
-      child: Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            backgroundColor: Colors.redAccent,
-            icon: Icon(Icons.create),
-            label: Text("Add Task"),
-            elevation: 20,
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => addTask(),
-                ),
-              );
-            },
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        floatingActionButton: FloatingActionButton.extended(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          backgroundColor: Color(0xFFff5e62),
-          appBar: AppBar(
-            elevation: 10,
-            toolbarHeight: 60.2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: Color(0xFFe53935),
-            title: Text(
-              "Lets Do It!",
-              style:
-                  TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 25),
+          backgroundColor: Provider.of<saveConfig>(context).getAccent(),
+          icon: Icon(Icons.create,
+              color: estimateColor(
+                  Provider.of<saveConfig>(context, listen: false).getAccent())),
+          label: Text(
+            "Add Task",
+            style: TextStyle(
+                fontSize: 20,
+                color: estimateColor(
+                    Provider.of<saveConfig>(context, listen: false)
+                        .getAccent())),
+          ),
+          elevation: 20,
+          onPressed: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => addTask(),
+              ),
+            );
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // backgroundColor: Color(0xFFff5e62),
+        appBar: AppBar(
+          elevation: 10,
+          toolbarHeight: 60.2,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text(
+            "Lets Do It!",
+            style: TextStyle(fontSize: 25),
+          ),
+          actions: [
+            Consumer<tasksList>(
+              builder: (context, value, child) {
+                return IconButton(
+                    icon: Icon(Icons.done_all_rounded),
+                    onPressed: () {
+                      Provider.of<tasksList>(context, listen: false)
+                          .allTasksDone();
+                    });
+              },
             ),
-            actions: [
-              Consumer<tasksList>(
-                builder: (context, value, child) {
-                  return IconButton(
-                      icon: Icon(Icons.done_all_rounded),
-                      onPressed: () {
-                        Provider.of<tasksList>(context, listen: false)
-                            .allTasksDone();
-                      });
+            Consumer<tasksList>(
+              builder: (context, value, child) {
+                return IconButton(
+                    icon: Icon(Icons.clear_all_rounded),
+                    onPressed: () {
+                      Provider.of<tasksList>(context, listen: false)
+                          .removeall();
+                    });
+              },
+            ),
+            Builder(
+              builder: (context) => PopupMenuButton<String>(
+                onSelected: selected,
+                itemBuilder: (context) {
+                  return Constants.choices.map((String choice) {
+                    return PopupMenuItem(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
                 },
               ),
-              Consumer<tasksList>(
-                builder: (context, value, child) {
-                  return IconButton(
-                      icon: Icon(Icons.clear_all_rounded),
-                      onPressed: () {
-                        Provider.of<tasksList>(context, listen: false)
-                            .removeall();
-                      });
-                },
-              ),
-              Builder(
-                builder: (context) => PopupMenuButton<String>(
-                  onSelected: selected,
-                  itemBuilder: (context) {
-                    return Constants.choices.map((String choice) {
-                      return PopupMenuItem(
-                        value: choice,
-                        child: Text(choice),
-                      );
-                    }).toList();
-                  },
-                ),
-              ),
-            ],
-          ),
-          body: taskPage()),
-    );
+            ),
+          ],
+        ),
+        body: taskPage());
   }
 
   void selected(String choice) async {

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:letsdoit/saveConfig.dart';
+import 'package:provider/provider.dart';
 
 class about extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'OnePlusSans'),
+      theme: ThemeData(
+        fontFamily: 'OnePlusSans',
+        primaryColor: Provider.of<saveConfig>(context).getAccent(),
+      ),
       home: Scaffold(
         appBar: AppBar(
           shape: RoundedRectangleBorder(
@@ -17,7 +22,6 @@ class about extends StatelessWidget {
             },
           ),
           title: Text("About"),
-          backgroundColor: Color(0xFFe53935),
         ),
         body: Center(
           child: Column(
