@@ -9,8 +9,8 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 class saveConfig extends ChangeNotifier {
   List<String> accent = ['Color(0xFFe53935)'];
   List<String> background = [
-    'Color(0xFF4568dc)',
-    'Color(0xFFb06ab3)',
+    'Color(0xFFff9966)',
+    'Color(0xFFff5e62),',
   ];
   static final key = encrypt.Key.fromLength(32);
   static final iv = encrypt.IV.fromLength(16);
