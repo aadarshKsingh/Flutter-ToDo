@@ -56,11 +56,6 @@ class settings extends StatefulWidget {
 }
 
 class _settingsState extends State<settings> {
-  Color mainAccent;
-  getAccent() {
-    return mainAccent;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -160,10 +155,9 @@ class _settingsState extends State<settings> {
                                 shape: CircleBorder(),
                                 color: AccentColor[index],
                                 onPressed: () {
-                                  mainAccent = AccentColor[index];
                                   Provider.of<saveConfig>(context,
                                           listen: false)
-                                      .changeAccent(mainAccent);
+                                      .changeAccent(AccentColor[index]);
                                   Navigator.pop(context);
                                 },
                               );
