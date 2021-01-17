@@ -50,13 +50,7 @@ List<Color> AccentColor = [
   Color(0xFFFFB900),
 ];
 
-class settings extends StatefulWidget {
-  @override
-  _settingsState createState() => _settingsState();
-}
-
-class _settingsState extends State<settings> {
-  @override
+class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
