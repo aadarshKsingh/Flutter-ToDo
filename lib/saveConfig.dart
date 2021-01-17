@@ -75,15 +75,15 @@ class saveConfig extends ChangeNotifier {
   }
 
   Future<void> readConfig() async {
-    File file = await _localFile;
-    if (file.existsSync() == true) {
+    try {
+      File file = await _localFile;
       var jsonString = await file.readAsBytes();
       var data = jsonDecode(utf8.decode(_decryptJSON(jsonString)));
       accent = data['accent'].toString();
       background1 = data['background1'];
       background2 = data['background2'];
       notifyListeners();
-    } else {
+    } catch (FileSystemException) {
       File file = await _localFile;
       file.create();
     }
