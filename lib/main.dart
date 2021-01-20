@@ -7,12 +7,14 @@ import 'Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:letsdoit/saveConfig.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => tasksList()),
     ChangeNotifierProvider(create: (_) => saveConfig())
   ], child: home()));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
 estimateColor(Color accent) {
