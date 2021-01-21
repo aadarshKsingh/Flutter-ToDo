@@ -47,6 +47,15 @@ class tasksList extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateTask(String updated_task, String updated_Desc, int index) {
+    _taskList[index] = updated_task;
+    _taskDescList[index] = updated_Desc;
+    _taskDateTime[index] = getCurrentDateTime();
+    notifyListeners();
+    clearJSON();
+    writeContent();
+  }
+
   removeall() async {
     _taskList = [];
     _taskStatus = [];
