@@ -53,25 +53,24 @@ class letsdoit extends StatefulWidget {
 class _letsdoitState extends State<letsdoit> {
   @override
   Widget build(BuildContext context) {
+    var model_tasksList = Provider.of<tasksList>(context, listen: false);
+    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
     return Scaffold(
         extendBodyBehindAppBar: true,
         floatingActionButton: FloatingActionButton.extended(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: Provider.of<saveConfig>(context).getAccent(),
+          backgroundColor: model_saveConfig.getAccent(),
           icon: Icon(Icons.create,
-              color: Provider.of<saveConfig>(context, listen: false)
-                  .estimateColor(Provider.of<saveConfig>(context, listen: false)
-                      .getAccent())),
+              color:
+                  model_saveConfig.estimateColor(model_saveConfig.getAccent())),
           label: Text(
             "Add Task",
             style: TextStyle(
                 fontSize: 20,
-                color: Provider.of<saveConfig>(context, listen: false)
-                    .estimateColor(
-                        Provider.of<saveConfig>(context, listen: false)
-                            .getAccent())),
+                color: model_saveConfig
+                    .estimateColor(model_saveConfig.getAccent())),
           ),
           elevation: 20,
           onPressed: () async {
@@ -84,7 +83,6 @@ class _letsdoitState extends State<letsdoit> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        // backgroundColor: Color(0xFFff5e62),
         appBar: AppBar(
           elevation: 10,
           toolbarHeight: 60.2,
@@ -100,8 +98,7 @@ class _letsdoitState extends State<letsdoit> {
                 return IconButton(
                     icon: Icon(Icons.done_all_rounded),
                     onPressed: () {
-                      Provider.of<tasksList>(context, listen: false)
-                          .allTasksDone();
+                      model_tasksList.allTasksDone();
                     });
               },
             ),

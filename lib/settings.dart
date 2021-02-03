@@ -85,43 +85,43 @@ class settings extends StatelessWidget {
                           context: context,
                           builder: (_) {
                             return Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: GridView.builder(
-                                    itemCount: background1.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 10,
-                                            mainAxisSpacing: 10,
-                                            childAspectRatio: 16 / 10),
-                                    itemBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: 100,
-                                        child: GestureDetector(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  gradient: LinearGradient(
-                                                      colors: [
-                                                        background1[index],
-                                                        background2[index]
-                                                      ],
-                                                      begin:
-                                                          Alignment.bottomLeft,
-                                                      end: Alignment.topRight)),
-                                            ),
-                                            onTap: () {
-                                              Provider.of<saveConfig>(context,
-                                                      listen: false)
-                                                  .changeBackground(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: GridView.builder(
+                                  itemCount: background1.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 10,
+                                          childAspectRatio: 16 / 10),
+                                  itemBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: 100,
+                                      child: GestureDetector(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                gradient: LinearGradient(
+                                                    colors: [
                                                       background1[index],
-                                                      background2[index]);
-                                              Navigator.pop(context);
-                                            }),
-                                      );
-                                    }));
+                                                      background2[index]
+                                                    ],
+                                                    begin: Alignment.bottomLeft,
+                                                    end: Alignment.topRight)),
+                                          ),
+                                          onTap: () {
+                                            Provider.of<saveConfig>(context,
+                                                    listen: false)
+                                                .changeBackground(
+                                                    background1[index],
+                                                    background2[index]);
+                                            Navigator.pop(context);
+                                          }),
+                                    );
+                                  }),
+                            );
                           })),
                   ListTile(
                     title: Text("Choose Accent Color"),

@@ -33,6 +33,8 @@ class _addTaskState extends State<addTask> {
 
   @override
   Widget build(BuildContext context) {
+    var model_tasksList = Provider.of<tasksList>(context, listen: false);
+    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -44,7 +46,7 @@ class _addTaskState extends State<addTask> {
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'OnePlusSans',
-          primaryColor: Provider.of<saveConfig>(context).getAccent(),
+          primaryColor: model_saveConfig.getAccent(),
         ),
         home: Container(
           padding: EdgeInsets.only(
@@ -52,8 +54,8 @@ class _addTaskState extends State<addTask> {
           ),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Provider.of<saveConfig>(context).getGradient()[0],
-              Provider.of<saveConfig>(context).getGradient()[1]
+              model_saveConfig.getGradient()[0],
+              model_saveConfig.getGradient()[1]
             ], begin: Alignment.bottomLeft, end: Alignment.topRight),
           ),
           child: Scaffold(
@@ -87,12 +89,8 @@ class _addTaskState extends State<addTask> {
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                       child: TextFormField(
                         style: TextStyle(
-                            color:
-                                Provider.of<saveConfig>(context, listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])),
+                            color: model_saveConfig.estimateColor(
+                                model_saveConfig.getGradient()[0])),
                         maxLines: 1,
                         autocorrect: true,
                         autofocus: true,
@@ -106,48 +104,36 @@ class _addTaskState extends State<addTask> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.4),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
@@ -155,21 +141,13 @@ class _addTaskState extends State<addTask> {
                           labelText: "Task Title",
                           hintText: "Enter your task",
                           hintStyle: TextStyle(
-                              color: Provider.of<saveConfig>(context,
-                                      listen: false)
-                                  .estimateColor(Provider.of<saveConfig>(
-                                          context,
-                                          listen: false)
-                                      .getGradient()[0])),
+                              color: model_saveConfig.estimateColor(
+                                  model_saveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
                               fontFamily: "OnePlusSans",
                               fontSize: 17,
-                              color: Provider.of<saveConfig>(context,
-                                      listen: false)
-                                  .estimateColor(Provider.of<saveConfig>(
-                                          context,
-                                          listen: false)
-                                      .getGradient()[0])),
+                              color: model_saveConfig.estimateColor(
+                                  model_saveConfig.getGradient()[0])),
                         ),
                       ),
                     ),
@@ -182,7 +160,9 @@ class _addTaskState extends State<addTask> {
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                       child: TextFormField(
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: model_saveConfig.estimateColor(
+                                model_saveConfig.getGradient()[0])),
                         autocorrect: true,
                         maxLines: 7,
                         controller: taskContr2,
@@ -190,24 +170,18 @@ class _addTaskState extends State<addTask> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.4),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])
+                                color: model_saveConfig
+                                    .estimateColor(
+                                        model_saveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
@@ -215,21 +189,13 @@ class _addTaskState extends State<addTask> {
                           labelText: "Task Description(Optional)",
                           hintText: "Enter your task Description",
                           hintStyle: TextStyle(
-                              color: Provider.of<saveConfig>(context,
-                                      listen: false)
-                                  .estimateColor(Provider.of<saveConfig>(
-                                          context,
-                                          listen: false)
-                                      .getGradient()[0])),
+                              color: model_saveConfig.estimateColor(
+                                  model_saveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
                             fontFamily: "OnePlusSans",
                             fontSize: 17,
-                            color:
-                                Provider.of<saveConfig>(context, listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0]),
+                            color: model_saveConfig.estimateColor(
+                                model_saveConfig.getGradient()[0]),
                           ),
                         ),
                       ),
@@ -243,12 +209,8 @@ class _addTaskState extends State<addTask> {
                         "Tags : ",
                         style: TextStyle(
                             fontSize: 17,
-                            color:
-                                Provider.of<saveConfig>(context, listen: false)
-                                    .estimateColor(Provider.of<saveConfig>(
-                                            context,
-                                            listen: false)
-                                        .getGradient()[0])),
+                            color: model_saveConfig.estimateColor(
+                                model_saveConfig.getGradient()[0])),
                       ),
                     ),
                   ),
@@ -262,39 +224,23 @@ class _addTaskState extends State<addTask> {
                           spacing: 10,
                           alignment: WrapAlignment.start,
                           children: List.generate(
-                            Provider.of<tasksList>(context, listen: false)
-                                .getAvailabeTags
-                                .length,
+                            model_tasksList.getAvailabeTags.length,
                             (index) => Consumer<tasksList>(
                               builder: (context, value, child) => ChoiceChip(
-                                backgroundColor: Provider.of<saveConfig>(
-                                        context,
-                                        listen: false)
+                                backgroundColor: model_saveConfig
                                     .getAccent()
                                     .withOpacity(0.3),
-                                selected: Provider.of<tasksList>(context)
-                                        .selectedIndex ==
-                                    index,
+                                selected:
+                                    model_tasksList.selectedIndex == index,
                                 label: Text(
-                                  Provider.of<tasksList>(
-                                    context,
-                                    listen: false,
-                                  ).getAvailabeTags[index],
+                                  model_tasksList.getAvailabeTags[index],
                                 ),
                                 labelStyle: TextStyle(
-                                    color: Provider.of<saveConfig>(context,
-                                            listen: false)
-                                        .estimateColor(Provider.of<saveConfig>(
-                                                context,
-                                                listen: false)
-                                            .getAccent())),
+                                    color: model_saveConfig.estimateColor(
+                                        model_saveConfig.getAccent())),
                                 onSelected: (selected) =>
-                                    Provider.of<tasksList>(context,
-                                            listen: false)
-                                        .changeIndex(index),
-                                selectedColor: Provider.of<saveConfig>(context,
-                                        listen: false)
-                                    .getAccent(),
+                                    model_tasksList.changeIndex(index),
+                                selectedColor: model_saveConfig.getAccent(),
                               ),
                             ),
                           ),
@@ -306,11 +252,9 @@ class _addTaskState extends State<addTask> {
                     child: RaisedButton(
                       padding:
                           EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-                      color: Provider.of<saveConfig>(context).getAccent(),
-                      textColor: Provider.of<saveConfig>(context, listen: false)
-                          .estimateColor(
-                              Provider.of<saveConfig>(context, listen: false)
-                                  .getAccent()),
+                      color: model_saveConfig.getAccent(),
+                      textColor: model_saveConfig
+                          .estimateColor(model_saveConfig.getAccent()),
                       child: Text(
                         "Add",
                         style: TextStyle(fontSize: 25),

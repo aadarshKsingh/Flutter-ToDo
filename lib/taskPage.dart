@@ -32,25 +32,20 @@ class _taskPageState extends State<taskPage> {
     super.dispose();
   }
 
-  estimateColor(Color gradient) {
-    if (ThemeData.estimateBrightnessForColor(gradient) == Brightness.dark)
-      return Colors.white;
-    else
-      return Colors.black;
-  }
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _editKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var model_tasksList = Provider.of<tasksList>(context, listen: false);
+    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(
         top: 5,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
-          Provider.of<saveConfig>(context).getGradient()[0],
-          Provider.of<saveConfig>(context).getGradient()[1]
+          model_saveConfig.getGradient()[0],
+          model_saveConfig.getGradient()[1]
         ], begin: Alignment.bottomLeft, end: Alignment.topRight),
       ),
       child: Scaffold(
@@ -70,10 +65,8 @@ class _taskPageState extends State<taskPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 40,
-                              color: estimateColor(Provider.of<saveConfig>(
-                                      context,
-                                      listen: false)
-                                  .getGradient()[0])),
+                              color: model_saveConfig.estimateColor(
+                                  model_saveConfig.getGradient()[0])),
                         ),
                         Text(
                           "You are free as a bird",
@@ -82,10 +75,8 @@ class _taskPageState extends State<taskPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
                               fontFamily: 'OnePlusSans',
-                              color: estimateColor(Provider.of<saveConfig>(
-                                      context,
-                                      listen: false)
-                                  .getGradient()[0])),
+                              color: model_saveConfig.estimateColor(
+                                  model_saveConfig.getGradient()[0])),
                         )
                       ],
                     ),
@@ -117,8 +108,7 @@ class _taskPageState extends State<taskPage> {
                           ),
                           key: ValueKey(value.getTaskList[index]),
                           onDismissed: (direction) {
-                            Provider.of<tasksList>(context, listen: false)
-                                .removeTaskValue(index);
+                            model_tasksList.removeTaskValue(index);
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -133,9 +123,7 @@ class _taskPageState extends State<taskPage> {
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: ListTile(
-                                          tileColor: Provider.of<saveConfig>(
-                                                  context,
-                                                  listen: false)
+                                          tileColor: model_saveConfig
                                               .getAccent()
                                               .withOpacity(0.3),
                                           contentPadding:
@@ -144,18 +132,14 @@ class _taskPageState extends State<taskPage> {
                                             padding:
                                                 const EdgeInsets.only(top: 5.0),
                                             child: IconButton(
-                                                icon: Provider.of<tasksList>(
-                                                                context,
-                                                                listen: false)
+                                                icon: model_tasksList
                                                             .getStatus[index] ==
                                                         true
                                                     ? Icon(
                                                         Icons
                                                             .check_circle_rounded,
                                                         size: 27,
-                                                        color: Provider.of<
-                                                                    saveConfig>(
-                                                                context)
+                                                        color: model_saveConfig
                                                             .getAccent(),
                                                       )
                                                     : Icon(
@@ -163,11 +147,8 @@ class _taskPageState extends State<taskPage> {
                                                             .check_circle_outline_rounded,
                                                         size: 27,
                                                       ),
-                                                onPressed: () =>
-                                                    Provider.of<tasksList>(
-                                                            context,
-                                                            listen: false)
-                                                        .changeStatus(index)),
+                                                onPressed: () => model_tasksList
+                                                    .changeStatus(index)),
                                           ),
                                           onTap: () {
                                             showDialog(
@@ -207,20 +188,12 @@ class _taskPageState extends State<taskPage> {
                                                                           .text =
                                                                       value.getTaskDescList[
                                                                           index];
-                                                                  Provider.of<tasksList>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .selectedIndex = Provider.of<
-                                                                              tasksList>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .getAvailabeTags
-                                                                      .indexOf(Provider.of<tasksList>(
-                                                                              context,
-                                                                              listen: false)
-                                                                          .getTag[index]);
+                                                                  model_tasksList
+                                                                          .selectedIndex =
+                                                                      model_tasksList
+                                                                          .getAvailabeTags
+                                                                          .indexOf(
+                                                                              model_tasksList.getTag[index]);
 
                                                                   showDialog(
                                                                       context:
@@ -251,19 +224,19 @@ class _taskPageState extends State<taskPage> {
                                                                                                 controller: _taskController,
                                                                                                 decoration: InputDecoration(
                                                                                                   enabledBorder: OutlineInputBorder(
-                                                                                                    borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                    borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.4), width: 2),
                                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                                   ),
                                                                                                   focusedBorder: OutlineInputBorder(
-                                                                                                    borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                    borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                                   ),
                                                                                                   errorBorder: OutlineInputBorder(
-                                                                                                    borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                    borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                                   ),
                                                                                                   focusedErrorBorder: OutlineInputBorder(
-                                                                                                    borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                    borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                                   ),
                                                                                                 ),
@@ -283,19 +256,19 @@ class _taskPageState extends State<taskPage> {
                                                                                                   maxLines: 5,
                                                                                                   decoration: InputDecoration(
                                                                                                     enabledBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.4), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     focusedBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     errorBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     focusedErrorBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                   ),
@@ -315,21 +288,18 @@ class _taskPageState extends State<taskPage> {
                                                                                                 child: GridView.builder(
                                                                                                     shrinkWrap: true,
                                                                                                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 0.0, mainAxisSpacing: 0.0, childAspectRatio: 1 / 0.6),
-                                                                                                    itemCount: Provider.of<tasksList>(context, listen: false).getAvailabeTags.length,
+                                                                                                    itemCount: model_tasksList.getAvailabeTags.length,
                                                                                                     itemBuilder: (context, index) {
                                                                                                       return Consumer<tasksList>(
                                                                                                         builder: (context, value, child) => ChoiceChip(
-                                                                                                          backgroundColor: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.3),
-                                                                                                          selected: Provider.of<tasksList>(context).selectedIndex == index,
+                                                                                                          backgroundColor: model_saveConfig.getAccent().withOpacity(0.3),
+                                                                                                          selected: model_tasksList.selectedIndex == index,
                                                                                                           label: Text(
-                                                                                                            Provider.of<tasksList>(
-                                                                                                              context,
-                                                                                                              listen: false,
-                                                                                                            ).getAvailabeTags[index],
+                                                                                                            model_tasksList.getAvailabeTags[index],
                                                                                                           ),
-                                                                                                          labelStyle: TextStyle(color: Provider.of<saveConfig>(context, listen: false).estimateColor(Provider.of<saveConfig>(context, listen: false).getAccent())),
-                                                                                                          onSelected: (selected) => Provider.of<tasksList>(context, listen: false).changeIndex(index),
-                                                                                                          selectedColor: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                          labelStyle: TextStyle(color: model_saveConfig.estimateColor(model_saveConfig.getAccent())),
+                                                                                                          onSelected: (selected) => model_tasksList.changeIndex(index),
+                                                                                                          selectedColor: model_saveConfig.getAccent(),
                                                                                                         ),
                                                                                                       );
                                                                                                     }),
@@ -347,10 +317,10 @@ class _taskPageState extends State<taskPage> {
                                                                                                       "Update",
                                                                                                       style: TextStyle(color: Colors.white),
                                                                                                     ),
-                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    color: model_saveConfig.getAccent(),
                                                                                                     onPressed: () {
                                                                                                       if (_editKey.currentState.validate()) {
-                                                                                                        Provider.of<tasksList>(context, listen: false).updateTask(_taskController.text, _descController.text, index);
+                                                                                                        model_tasksList.updateTask(_taskController.text, _descController.text, index);
 
                                                                                                         Navigator.pop(context);
                                                                                                       }
@@ -361,7 +331,7 @@ class _taskPageState extends State<taskPage> {
                                                                                                       "Cancel",
                                                                                                       style: TextStyle(color: Colors.white),
                                                                                                     ),
-                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    color: model_saveConfig.getAccent(),
                                                                                                     onPressed: () {
                                                                                                       Navigator.pop(context);
                                                                                                     })
@@ -435,19 +405,14 @@ class _taskPageState extends State<taskPage> {
                                                   right: 30, top: 2),
                                               shape: RoundedRectangleBorder(
                                                 side: BorderSide(
-                                                    color:
-                                                        Provider.of<saveConfig>(
-                                                                context,
-                                                                listen: false)
-                                                            .getGradient()[0]
-                                                            .withOpacity(0.4),
+                                                    color: model_saveConfig
+                                                        .getGradient()[0]
+                                                        .withOpacity(0.4),
                                                     width: 3),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
-                                              color: Provider.of<saveConfig>(
-                                                      context,
-                                                      listen: false)
+                                              color: model_saveConfig
                                                   .getAccent()
                                                   .withOpacity(0.25),
                                               child: Container(
@@ -483,18 +448,12 @@ class _taskPageState extends State<taskPage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                Provider.of<tasksList>(context,
-                                                                listen: false)
-                                                            .getTag[index] !=
+                                                model_tasksList.getTag[index] !=
                                                         'None'
                                                     ? Container(
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
-                                                                color: Provider.of<
-                                                                            saveConfig>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
+                                                                color: model_saveConfig
                                                                     .getAccent()
                                                                     .withOpacity(
                                                                         0.6),
@@ -511,9 +470,7 @@ class _taskPageState extends State<taskPage> {
                                                                 horizontal: 5,
                                                                 vertical: 2),
                                                         child: Text(
-                                                          Provider.of<tasksList>(
-                                                                  context,
-                                                                  listen: false)
+                                                          model_tasksList
                                                               .getTag[index],
                                                           style: TextStyle(
                                                               fontSize: 10,
@@ -538,9 +495,7 @@ class _taskPageState extends State<taskPage> {
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: ListTile(
-                                          tileColor: Provider.of<saveConfig>(
-                                                  context,
-                                                  listen: false)
+                                          tileColor: model_saveConfig
                                               .getAccent()
                                               .withOpacity(0.3),
                                           contentPadding:
@@ -549,18 +504,14 @@ class _taskPageState extends State<taskPage> {
                                             padding:
                                                 const EdgeInsets.only(top: 5.0),
                                             child: IconButton(
-                                                icon: Provider.of<tasksList>(
-                                                                context,
-                                                                listen: false)
+                                                icon: model_tasksList
                                                             .getStatus[index] ==
                                                         true
                                                     ? Icon(
                                                         Icons
                                                             .check_circle_rounded,
                                                         size: 27,
-                                                        color: Provider.of<
-                                                                    saveConfig>(
-                                                                context)
+                                                        color: model_saveConfig
                                                             .getAccent(),
                                                       )
                                                     : Icon(
@@ -568,11 +519,8 @@ class _taskPageState extends State<taskPage> {
                                                             .check_circle_outline_rounded,
                                                         size: 27,
                                                       ),
-                                                onPressed: () =>
-                                                    Provider.of<tasksList>(
-                                                            context,
-                                                            listen: false)
-                                                        .changeStatus(index)),
+                                                onPressed: () => model_tasksList
+                                                    .changeStatus(index)),
                                           ),
                                           onTap: () {
                                             showDialog(
@@ -612,20 +560,12 @@ class _taskPageState extends State<taskPage> {
                                                                           .text =
                                                                       value.getTaskDescList[
                                                                           index];
-                                                                  Provider.of<tasksList>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .selectedIndex = Provider.of<
-                                                                              tasksList>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .getAvailabeTags
-                                                                      .indexOf(Provider.of<tasksList>(
-                                                                              context,
-                                                                              listen: false)
-                                                                          .getTag[index]);
+                                                                  model_tasksList
+                                                                          .selectedIndex =
+                                                                      model_tasksList
+                                                                          .getAvailabeTags
+                                                                          .indexOf(
+                                                                              model_tasksList.getTag[index]);
 
                                                                   showDialog(
                                                                       context:
@@ -656,19 +596,19 @@ class _taskPageState extends State<taskPage> {
                                                                                                   controller: _taskController,
                                                                                                   decoration: InputDecoration(
                                                                                                     enabledBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.4), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     focusedBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     errorBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                     focusedErrorBorder: OutlineInputBorder(
-                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                       borderRadius: BorderRadius.circular(10),
                                                                                                     ),
                                                                                                   ),
@@ -688,19 +628,19 @@ class _taskPageState extends State<taskPage> {
                                                                                                     maxLines: 5,
                                                                                                     decoration: InputDecoration(
                                                                                                       enabledBorder: OutlineInputBorder(
-                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                        borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.4), width: 2),
                                                                                                         borderRadius: BorderRadius.circular(10),
                                                                                                       ),
                                                                                                       focusedBorder: OutlineInputBorder(
-                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                         borderRadius: BorderRadius.circular(10),
                                                                                                       ),
                                                                                                       errorBorder: OutlineInputBorder(
-                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                         borderRadius: BorderRadius.circular(10),
                                                                                                       ),
                                                                                                       focusedErrorBorder: OutlineInputBorder(
-                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderSide: BorderSide(color: model_saveConfig.getAccent().withOpacity(0.6), width: 2),
                                                                                                         borderRadius: BorderRadius.circular(10),
                                                                                                       ),
                                                                                                     ),
@@ -724,20 +664,17 @@ class _taskPageState extends State<taskPage> {
                                                                                                       spacing: 10,
                                                                                                       alignment: WrapAlignment.start,
                                                                                                       children: List.generate(
-                                                                                                        Provider.of<tasksList>(context, listen: false).getAvailabeTags.length,
+                                                                                                        model_tasksList.getAvailabeTags.length,
                                                                                                         (index) => Consumer<tasksList>(
                                                                                                           builder: (context, value, child) => ChoiceChip(
-                                                                                                            backgroundColor: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.3),
-                                                                                                            selected: Provider.of<tasksList>(context).selectedIndex == index,
+                                                                                                            backgroundColor: model_saveConfig.getAccent().withOpacity(0.3),
+                                                                                                            selected: model_tasksList.selectedIndex == index,
                                                                                                             label: Text(
-                                                                                                              Provider.of<tasksList>(
-                                                                                                                context,
-                                                                                                                listen: false,
-                                                                                                              ).getAvailabeTags[index],
+                                                                                                              model_tasksList.getAvailabeTags[index],
                                                                                                             ),
-                                                                                                            labelStyle: TextStyle(color: Provider.of<saveConfig>(context, listen: false).estimateColor(Provider.of<saveConfig>(context, listen: false).getAccent())),
-                                                                                                            onSelected: (selected) => Provider.of<tasksList>(context, listen: false).changeIndex(index),
-                                                                                                            selectedColor: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                            labelStyle: TextStyle(color: model_saveConfig.estimateColor(model_saveConfig.getAccent())),
+                                                                                                            onSelected: (selected) => model_tasksList.changeIndex(index),
+                                                                                                            selectedColor: model_saveConfig.getAccent(),
                                                                                                           ),
                                                                                                         ),
                                                                                                       ),
@@ -757,10 +694,10 @@ class _taskPageState extends State<taskPage> {
                                                                                                       "Update",
                                                                                                       style: TextStyle(color: Colors.white),
                                                                                                     ),
-                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    color: model_saveConfig.getAccent(),
                                                                                                     onPressed: () {
                                                                                                       if (_editKey.currentState.validate()) {
-                                                                                                        Provider.of<tasksList>(context, listen: false).updateTask(_taskController.text, _descController.text, index);
+                                                                                                        model_tasksList.updateTask(_taskController.text, _descController.text, index);
                                                                                                         Navigator.pop(context);
                                                                                                       }
                                                                                                     }),
@@ -770,7 +707,7 @@ class _taskPageState extends State<taskPage> {
                                                                                                       "Cancel",
                                                                                                       style: TextStyle(color: Colors.white),
                                                                                                     ),
-                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    color: model_saveConfig.getAccent(),
                                                                                                     onPressed: () {
                                                                                                       Navigator.pop(context);
                                                                                                     })
@@ -842,19 +779,14 @@ class _taskPageState extends State<taskPage> {
                                                   right: 30, top: 2),
                                               shape: RoundedRectangleBorder(
                                                 side: BorderSide(
-                                                    color:
-                                                        Provider.of<saveConfig>(
-                                                                context,
-                                                                listen: false)
-                                                            .getGradient()[0]
-                                                            .withOpacity(0.4),
+                                                    color: model_saveConfig
+                                                        .getGradient()[0]
+                                                        .withOpacity(0.4),
                                                     width: 3),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
-                                              color: Provider.of<saveConfig>(
-                                                      context,
-                                                      listen: false)
+                                              color: model_saveConfig
                                                   .getAccent()
                                                   .withOpacity(0.25),
                                               child: Container(
@@ -886,9 +818,7 @@ class _taskPageState extends State<taskPage> {
                                                       .lineThrough,
                                                   decorationThickness: 3,
                                                   decorationColor:
-                                                      Provider.of<saveConfig>(
-                                                              context,
-                                                              listen: false)
+                                                      model_saveConfig
                                                           .getAccent(),
                                                   decorationStyle:
                                                       TextDecorationStyle
@@ -902,18 +832,12 @@ class _taskPageState extends State<taskPage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                Provider.of<tasksList>(context,
-                                                                listen: false)
-                                                            .getTag[index] !=
+                                                model_tasksList.getTag[index] !=
                                                         'None'
                                                     ? Container(
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
-                                                                color: Provider.of<
-                                                                            saveConfig>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
+                                                                color: model_saveConfig
                                                                     .getAccent()
                                                                     .withOpacity(
                                                                         0.6),
@@ -930,9 +854,7 @@ class _taskPageState extends State<taskPage> {
                                                                 horizontal: 5,
                                                                 vertical: 2),
                                                         child: Text(
-                                                          Provider.of<tasksList>(
-                                                                  context,
-                                                                  listen: false)
+                                                          model_tasksList
                                                               .getTag[index],
                                                           style: TextStyle(
                                                               fontSize: 10,
