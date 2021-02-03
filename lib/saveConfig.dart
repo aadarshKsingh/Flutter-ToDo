@@ -39,6 +39,13 @@ class saveConfig extends ChangeNotifier {
     notifyListeners();
   }
 
+  estimateColor(Color accent) {
+    if (ThemeData.estimateBrightnessForColor(accent) == Brightness.dark)
+      return Colors.white;
+    else
+      return Colors.black;
+  }
+
   resetConfig() {
     accent = 'Color(0xFFe53935)';
     background1 = 'Color(0xFFff9966)';

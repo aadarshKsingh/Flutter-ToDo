@@ -12,6 +12,23 @@ class tasksList extends ChangeNotifier {
   List<bool> _taskStatus = [];
   List<String> _taskDescList = [];
   List<String> _taskDateTime = [];
+  List<String> _tag = [];
+
+  List<String> _availableTags = [
+    'None',
+    'Work',
+    'Hobby',
+    'Leisure',
+    'Note',
+    'Remind',
+    'Important',
+  ];
+
+  int selectedIndex = 0;
+  changeIndex(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
 
   static final key = encrypt.Key.fromLength(32);
   static final iv = encrypt.IV.fromLength(16);
@@ -33,6 +50,8 @@ class tasksList extends ChangeNotifier {
     _taskStatus.add(false);
     _taskDescList.add(subtitle);
     _taskDateTime.add(getCurrentDateTime());
+    _tag.add(_availableTags[selectedIndex]);
+    selectedIndex = 0;
     writeContent();
     notifyListeners();
   }
@@ -42,15 +61,18 @@ class tasksList extends ChangeNotifier {
     _taskStatus.removeAt(index);
     _taskDescList.removeAt(index);
     _taskDateTime.removeAt(index);
+    _tag.remove(index);
     clearJSON();
     writeContent();
     notifyListeners();
   }
 
-  updateTask(String updated_task, String updated_Desc, int index) {
-    _taskList[index] = updated_task;
-    _taskDescList[index] = updated_Desc;
+  updateTask(String updatedTask, String updatedDesc, int index) {
+    _taskList[index] = updatedTask;
+    _taskDescList[index] = updatedDesc;
     _taskDateTime[index] = getCurrentDateTime();
+    _tag[index] = _availableTags[selectedIndex];
+    selectedIndex = 0;
     notifyListeners();
     clearJSON();
     writeContent();
@@ -61,6 +83,7 @@ class tasksList extends ChangeNotifier {
     _taskStatus = [];
     _taskDescList = [];
     _taskDateTime = [];
+    _tag = [];
     await clearJSON();
     notifyListeners();
   }
@@ -114,6 +137,7 @@ class tasksList extends ChangeNotifier {
         _taskStatus.add(data["status"][i]);
         _taskDescList.add(data["description"][i]);
         _taskDateTime.add(data["dateTime"][i]);
+        _tag.add(data["tag"][i]);
       }
       notifyListeners();
     } catch (FileSystemException) {
@@ -127,6 +151,7 @@ class tasksList extends ChangeNotifier {
     taskJSON['status'] = _taskStatus;
     taskJSON['description'] = _taskDescList;
     taskJSON['dateTime'] = _taskDateTime;
+    taskJSON['tag'] = _tag;
     var serializedMap = _encryptJSON(utf8.encode(jsonEncode(taskJSON)));
     File f = await _localFile;
     await f.writeAsBytes(serializedMap);
@@ -141,4 +166,6 @@ class tasksList extends ChangeNotifier {
   List<bool> get getStatus => _taskStatus;
   List<String> get getTaskDescList => _taskDescList;
   List<String> get getDateTime => _taskDateTime;
+  List<String> get getTag => _tag;
+  List<String> get getAvailabeTags => _availableTags;
 }

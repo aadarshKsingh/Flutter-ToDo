@@ -121,7 +121,6 @@ class _taskPageState extends State<taskPage> {
                                 .removeTaskValue(index);
                           },
                           child: Container(
-                            height: 100,
                             padding: EdgeInsets.symmetric(
                                 vertical: 3, horizontal: 0),
                             child: Card(
@@ -134,84 +133,104 @@ class _taskPageState extends State<taskPage> {
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: ListTile(
-                                        tileColor: Provider.of<saveConfig>(
-                                                context,
-                                                listen: false)
-                                            .getAccent()
-                                            .withOpacity(0.3),
-                                        contentPadding:
-                                            EdgeInsets.only(top: 20, left: 10),
-                                        leading: IconButton(
-                                            icon: Provider.of<tasksList>(
-                                                            context,
-                                                            listen: false)
-                                                        .getStatus[index] ==
-                                                    true
-                                                ? Icon(
-                                                    Icons.check_circle_rounded,
-                                                    size: 27,
-                                                    color:
-                                                        Provider.of<saveConfig>(
+                                          tileColor: Provider.of<saveConfig>(
+                                                  context,
+                                                  listen: false)
+                                              .getAccent()
+                                              .withOpacity(0.3),
+                                          contentPadding:
+                                              EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          leading: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 5.0),
+                                            child: IconButton(
+                                                icon: Provider.of<tasksList>(
+                                                                context,
+                                                                listen: false)
+                                                            .getStatus[index] ==
+                                                        true
+                                                    ? Icon(
+                                                        Icons
+                                                            .check_circle_rounded,
+                                                        size: 27,
+                                                        color: Provider.of<
+                                                                    saveConfig>(
                                                                 context)
                                                             .getAccent(),
-                                                  )
-                                                : Icon(
-                                                    Icons
-                                                        .check_circle_outline_rounded,
-                                                    size: 27,
-                                                  ),
-                                            onPressed: () =>
-                                                Provider.of<tasksList>(context,
-                                                        listen: false)
-                                                    .changeStatus(index)),
-                                        onTap: () {
-                                          showDialog(
-                                              context:
-                                                  _scaffoldKey.currentContext,
-                                              builder: (_) => SimpleDialog(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                      )
+                                                    : Icon(
+                                                        Icons
+                                                            .check_circle_outline_rounded,
+                                                        size: 27,
                                                       ),
-                                                      title: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .description_rounded,
-                                                          ),
-                                                          Center(
-                                                            child: Text(
-                                                                "Task Details"),
-                                                          ),
-                                                          IconButton(
-                                                              icon: Icon(
-                                                                  Icons.edit),
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                                _taskController
-                                                                        .text =
-                                                                    value.getTaskList[
-                                                                        index];
-                                                                _descController
-                                                                        .text =
-                                                                    value.getTaskDescList[
-                                                                        index];
+                                                onPressed: () =>
+                                                    Provider.of<tasksList>(
+                                                            context,
+                                                            listen: false)
+                                                        .changeStatus(index)),
+                                          ),
+                                          onTap: () {
+                                            showDialog(
+                                                context:
+                                                    _scaffoldKey.currentContext,
+                                                builder: (_) => SimpleDialog(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        title: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .description_rounded,
+                                                            ),
+                                                            Center(
+                                                              child: Text(
+                                                                  "Task Details"),
+                                                            ),
+                                                            IconButton(
+                                                                icon: Icon(
+                                                                    Icons.edit),
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  _taskController
+                                                                          .text =
+                                                                      value.getTaskList[
+                                                                          index];
+                                                                  _descController
+                                                                          .text =
+                                                                      value.getTaskDescList[
+                                                                          index];
+                                                                  Provider.of<tasksList>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .selectedIndex = Provider.of<
+                                                                              tasksList>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .getAvailabeTags
+                                                                      .indexOf(Provider.of<tasksList>(
+                                                                              context,
+                                                                              listen: false)
+                                                                          .getTag[index]);
 
-                                                                showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (context) =>
-                                                                            SimpleDialog(
-                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                                              children: [
-                                                                                Container(
+                                                                  showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) =>
+                                                                              SimpleDialog(
+                                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                children: [
+                                                                                  Container(
                                                                                     width: MediaQuery.of(context).size.width - 30,
                                                                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                                                                     child: Form(
@@ -226,8 +245,6 @@ class _taskPageState extends State<taskPage> {
                                                                                                 validator: (value) {
                                                                                                   if (value.isEmpty)
                                                                                                     return "Please enter some text";
-                                                                                                  else if (Provider.of<tasksList>(context, listen: false).getTaskList.contains(value))
-                                                                                                    return "Task already Added";
                                                                                                   else
                                                                                                     return null;
                                                                                                 },
@@ -250,313 +267,692 @@ class _taskPageState extends State<taskPage> {
                                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                                   ),
                                                                                                 ),
-                                                                                                // initialValue: value.getTaskList[index],
                                                                                               ),
                                                                                             )
                                                                                           ]),
                                                                                           SizedBox(
-                                                                                            height: 20,
+                                                                                            height: 10,
                                                                                           ),
                                                                                           Row(
                                                                                             children: [
                                                                                               Text("Description    :   "),
                                                                                               Expanded(
-                                                                                                  child: TextFormField(
-                                                                                                      textCapitalization: TextCapitalization.words,
-                                                                                                      controller: _descController,
-                                                                                                      maxLines: 5,
-                                                                                                      decoration: InputDecoration(
-                                                                                                        enabledBorder: OutlineInputBorder(
-                                                                                                          borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
-                                                                                                          borderRadius: BorderRadius.circular(10),
+                                                                                                child: TextFormField(
+                                                                                                  textCapitalization: TextCapitalization.words,
+                                                                                                  controller: _descController,
+                                                                                                  maxLines: 5,
+                                                                                                  decoration: InputDecoration(
+                                                                                                    enabledBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    focusedBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    errorBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    focusedErrorBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                          SizedBox(height: 10),
+                                                                                          Row(
+                                                                                            mainAxisSize: MainAxisSize.min,
+                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Text('Task Tag    : '),
+                                                                                              Flexible(
+                                                                                                fit: FlexFit.tight,
+                                                                                                flex: 2,
+                                                                                                child: GridView.builder(
+                                                                                                    shrinkWrap: true,
+                                                                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 0.0, mainAxisSpacing: 0.0, childAspectRatio: 1 / 0.6),
+                                                                                                    itemCount: Provider.of<tasksList>(context, listen: false).getAvailabeTags.length,
+                                                                                                    itemBuilder: (context, index) {
+                                                                                                      return Consumer<tasksList>(
+                                                                                                        builder: (context, value, child) => ChoiceChip(
+                                                                                                          backgroundColor: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.3),
+                                                                                                          selected: Provider.of<tasksList>(context).selectedIndex == index,
+                                                                                                          label: Text(
+                                                                                                            Provider.of<tasksList>(
+                                                                                                              context,
+                                                                                                              listen: false,
+                                                                                                            ).getAvailabeTags[index],
+                                                                                                          ),
+                                                                                                          labelStyle: TextStyle(color: Provider.of<saveConfig>(context, listen: false).estimateColor(Provider.of<saveConfig>(context, listen: false).getAccent())),
+                                                                                                          onSelected: (selected) => Provider.of<tasksList>(context, listen: false).changeIndex(index),
+                                                                                                          selectedColor: Provider.of<saveConfig>(context, listen: false).getAccent(),
                                                                                                         ),
-                                                                                                        focusedBorder: OutlineInputBorder(
-                                                                                                          borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
-                                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                                        ),
-                                                                                                        errorBorder: OutlineInputBorder(
-                                                                                                          borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
-                                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                                        ),
-                                                                                                        focusedErrorBorder: OutlineInputBorder(
-                                                                                                          borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
-                                                                                                          borderRadius: BorderRadius.circular(10),
-                                                                                                        ),
-                                                                                                      )))
-                                                                                              // initialValue: value.getTaskDescList[index] == null ? 'NA' : value.getTaskDescList[index]))
+                                                                                                      );
+                                                                                                    }),
+                                                                                              ),
                                                                                             ],
                                                                                           ),
                                                                                           SizedBox(height: 20),
                                                                                           Center(
-                                                                                              child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                            children: [
-                                                                                              RaisedButton(
-                                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Update",
-                                                                                                    style: TextStyle(color: Colors.white),
-                                                                                                  ),
-                                                                                                  color: Provider.of<saveConfig>(context, listen: false).getAccent(),
-                                                                                                  onPressed: () {
-                                                                                                    if (_editKey.currentState.validate()) {
-                                                                                                      Provider.of<tasksList>(context, listen: false).updateTask(_taskController.text, _descController.text, index);
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              children: [
+                                                                                                RaisedButton(
+                                                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Update",
+                                                                                                      style: TextStyle(color: Colors.white),
+                                                                                                    ),
+                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    onPressed: () {
+                                                                                                      if (_editKey.currentState.validate()) {
+                                                                                                        Provider.of<tasksList>(context, listen: false).updateTask(_taskController.text, _descController.text, index);
+
+                                                                                                        Navigator.pop(context);
+                                                                                                      }
+                                                                                                    }),
+                                                                                                RaisedButton(
+                                                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Cancel",
+                                                                                                      style: TextStyle(color: Colors.white),
+                                                                                                    ),
+                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    onPressed: () {
                                                                                                       Navigator.pop(context);
-                                                                                                    }
-                                                                                                  }),
-                                                                                              RaisedButton(
-                                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Cancel",
-                                                                                                    style: TextStyle(color: Colors.white),
-                                                                                                  ),
-                                                                                                  color: Provider.of<saveConfig>(context, listen: false).getAccent(),
-                                                                                                  onPressed: () {
-                                                                                                    Navigator.pop(context);
-                                                                                                  })
-                                                                                            ],
-                                                                                          ))
+                                                                                                    })
+                                                                                              ],
+                                                                                            ),
+                                                                                          )
                                                                                         ],
                                                                                       ),
-                                                                                    )),
-                                                                              ],
-                                                                            ));
-                                                              })
-                                                        ],
-                                                      ),
-                                                      children: [
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      15,
-                                                                  vertical: 10),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: [
-                                                              Row(
-                                                                children: [
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ));
+                                                                })
+                                                          ],
+                                                        ),
+                                                        children: [
+                                                          Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        15,
+                                                                    vertical:
+                                                                        10),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        "Task Title       :     "),
+                                                                    Text(value
+                                                                            .getTaskList[
+                                                                        index])
+                                                                  ],
+                                                                ),
+                                                                Row(children: [
                                                                   Text(
-                                                                      "Task Title       :     "),
+                                                                      'Task Done     :     '),
                                                                   Text(value
-                                                                          .getTaskList[
-                                                                      index])
-                                                                ],
-                                                              ),
-                                                              Row(children: [
-                                                                Text(
-                                                                    'Task Done     :     '),
-                                                                Text(value
-                                                                    .getStatus[
-                                                                        index]
-                                                                    .toString()),
-                                                              ]),
-                                                              Row(children: [
-                                                                Text(
-                                                                    'Description   :   '),
-                                                                value
-                                                                        .getTaskDescList[
-                                                                            index]
-                                                                        .isEmpty
-                                                                    ? Text("NA")
-                                                                    : Flexible(
-                                                                        child: Text(
-                                                                            value.getTaskDescList[index]),
-                                                                      )
-                                                              ]),
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ]));
-                                        },
-                                        trailing: Container(
-                                          child: Card(
-                                            elevation: 0,
-                                            margin: EdgeInsets.only(right: 30),
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  color:
-                                                      Provider.of<saveConfig>(
-                                                              context,
-                                                              listen: false)
-                                                          .getGradient()[0]
-                                                          .withOpacity(0.4),
-                                                  width: 6),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            color: Provider.of<saveConfig>(
-                                                    context,
-                                                    listen: false)
-                                                .getAccent()
-                                                .withOpacity(0.45),
-                                            child: Container(
-                                              height: 60,
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 10, vertical: 5),
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 5,
-                                                horizontal: 10,
+                                                                      .getStatus[
+                                                                          index]
+                                                                      .toString()),
+                                                                ]),
+                                                                Row(children: [
+                                                                  Text(
+                                                                      'Description   :   '),
+                                                                  value
+                                                                          .getTaskDescList[
+                                                                              index]
+                                                                          .isEmpty
+                                                                      ? Text(
+                                                                          "NA")
+                                                                      : Flexible(
+                                                                          child:
+                                                                              Text(value.getTaskDescList[index]),
+                                                                        )
+                                                                ]),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ]));
+                                          },
+                                          trailing: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 0),
+                                            child: Card(
+                                              elevation: 0,
+                                              margin: EdgeInsets.only(
+                                                  right: 30, top: 2),
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    color:
+                                                        Provider.of<saveConfig>(
+                                                                context,
+                                                                listen: false)
+                                                            .getGradient()[0]
+                                                            .withOpacity(0.4),
+                                                    width: 3),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                              child: Text(
-                                                value.getDateTime[index],
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Color(0xFF1C1C1C)),
+                                              color: Provider.of<saveConfig>(
+                                                      context,
+                                                      listen: false)
+                                                  .getAccent()
+                                                  .withOpacity(0.25),
+                                              child: Container(
+                                                height: 60,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 3),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 10,
+                                                ),
+                                                child: Text(
+                                                  value.getDateTime[index],
+                                                  style: TextStyle(
+                                                      fontSize: 13.5,
+                                                      color: Color(0xFF1C1C1C)),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        title: Text(
-                                          value.getTaskList[index],
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ),
+                                          title: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5.0, top: 10, left: 2),
+                                            child: Text(
+                                              value.getTaskList[index],
+                                              style: TextStyle(fontSize: 25),
+                                            ),
+                                          ),
+                                          subtitle: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0, bottom: 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Provider.of<tasksList>(context,
+                                                                listen: false)
+                                                            .getTag[index] !=
+                                                        'None'
+                                                    ? Container(
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Provider.of<
+                                                                            saveConfig>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .getAccent()
+                                                                    .withOpacity(
+                                                                        0.6),
+                                                                width: 2),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10,
+                                                            right: 5),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5,
+                                                                vertical: 2),
+                                                        child: Text(
+                                                          Provider.of<tasksList>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .getTag[index],
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10,
+                                                            right: 5),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5,
+                                                                vertical: 2),
+                                                      )
+                                              ],
+                                            ),
+                                          )),
                                     )
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: ListTile(
-                                        tileColor: Provider.of<saveConfig>(
-                                                context,
-                                                listen: false)
-                                            .getAccent()
-                                            .withOpacity(0.3),
-                                        contentPadding: EdgeInsets.only(
-                                            top: 20,
-                                            // bottom: 10,
-                                            left: 10),
-                                        leading: IconButton(
-                                            icon: Provider.of<tasksList>(
-                                                            context,
-                                                            listen: false)
-                                                        .getStatus[index] ==
-                                                    true
-                                                ? Icon(
-                                                    Icons.check_circle_rounded,
-                                                    size: 27,
-                                                    color:
-                                                        Provider.of<saveConfig>(
-                                                                context)
-                                                            .getAccent(),
-                                                  )
-                                                : Icon(
-                                                    Icons
-                                                        .check_circle_outline_rounded,
-                                                    size: 27,
-                                                  ),
-                                            onPressed: () =>
-                                                Provider.of<tasksList>(context,
-                                                        listen: false)
-                                                    .changeStatus(index)),
-                                        onTap: () {
-                                          showDialog(
-                                              context: context,
-                                              builder:
-                                                  (context) => SimpleDialog(
-                                                          title: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .description_rounded,
-                                                              ),
-                                                              Center(
-                                                                  child: Text(
-                                                                      "Task Details")),
-                                                            ],
-                                                          ),
-                                                          children: [
-                                                            Container(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          15,
-                                                                      vertical:
-                                                                          10),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  Row(
-                                                                    children: [
-                                                                      Text(
-                                                                          "Task Title       :     "),
-                                                                      Text(value
-                                                                              .getTaskList[
-                                                                          index])
-                                                                    ],
-                                                                  ),
-                                                                  Row(
-                                                                      children: [
-                                                                        Text(
-                                                                            'Task Done     :     '),
-                                                                        Text(value
-                                                                            .getStatus[index]
-                                                                            .toString()),
-                                                                      ]),
-                                                                  Row(
-                                                                      children: [
-                                                                        Text(
-                                                                            'Description   :   '),
-                                                                        value.getTaskDescList[index].isEmpty
-                                                                            ? Text("NA")
-                                                                            : Flexible(
-                                                                                child: Text(value.getTaskDescList[index]),
-                                                                              )
-                                                                      ]),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ]));
-                                        },
-                                        trailing: Card(
-                                          elevation: 0,
-                                          margin: EdgeInsets.only(right: 30),
-                                          shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                                color: Provider.of<saveConfig>(
-                                                        context,
-                                                        listen: false)
-                                                    .getGradient()[0]
-                                                    .withOpacity(0.4),
-                                                width: 6),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          color: Provider.of<saveConfig>(
+                                          tileColor: Provider.of<saveConfig>(
                                                   context,
                                                   listen: false)
                                               .getAccent()
-                                              .withOpacity(0.45),
-                                          child: Container(
-                                            height: 60,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
+                                              .withOpacity(0.3),
+                                          contentPadding:
+                                              EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          leading: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 5.0),
+                                            child: IconButton(
+                                                icon: Provider.of<tasksList>(
+                                                                context,
+                                                                listen: false)
+                                                            .getStatus[index] ==
+                                                        true
+                                                    ? Icon(
+                                                        Icons
+                                                            .check_circle_rounded,
+                                                        size: 27,
+                                                        color: Provider.of<
+                                                                    saveConfig>(
+                                                                context)
+                                                            .getAccent(),
+                                                      )
+                                                    : Icon(
+                                                        Icons
+                                                            .check_circle_outline_rounded,
+                                                        size: 27,
+                                                      ),
+                                                onPressed: () =>
+                                                    Provider.of<tasksList>(
+                                                            context,
+                                                            listen: false)
+                                                        .changeStatus(index)),
+                                          ),
+                                          onTap: () {
+                                            showDialog(
+                                                context:
+                                                    _scaffoldKey.currentContext,
+                                                builder: (_) => SimpleDialog(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        title: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .description_rounded,
+                                                            ),
+                                                            Center(
+                                                              child: Text(
+                                                                  "Task Details"),
+                                                            ),
+                                                            IconButton(
+                                                                icon: Icon(
+                                                                    Icons.edit),
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  _taskController
+                                                                          .text =
+                                                                      value.getTaskList[
+                                                                          index];
+                                                                  _descController
+                                                                          .text =
+                                                                      value.getTaskDescList[
+                                                                          index];
+                                                                  Provider.of<tasksList>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .selectedIndex = Provider.of<
+                                                                              tasksList>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .getAvailabeTags
+                                                                      .indexOf(Provider.of<tasksList>(
+                                                                              context,
+                                                                              listen: false)
+                                                                          .getTag[index]);
+
+                                                                  showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) =>
+                                                                              SimpleDialog(
+                                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                children: [
+                                                                                  Container(
+                                                                                      width: MediaQuery.of(context).size.width - 30,
+                                                                                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                                                                      child: Form(
+                                                                                        key: _editKey,
+                                                                                        child: Column(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                          children: [
+                                                                                            Row(children: [
+                                                                                              Text("Task Title       :      "),
+                                                                                              Expanded(
+                                                                                                child: TextFormField(
+                                                                                                  validator: (value) {
+                                                                                                    if (value.isEmpty)
+                                                                                                      return "Please enter some text";
+                                                                                                    else
+                                                                                                      return null;
+                                                                                                  },
+                                                                                                  controller: _taskController,
+                                                                                                  decoration: InputDecoration(
+                                                                                                    enabledBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    focusedBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    errorBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    focusedErrorBorder: OutlineInputBorder(
+                                                                                                      borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              )
+                                                                                            ]),
+                                                                                            SizedBox(
+                                                                                              height: 20,
+                                                                                            ),
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                Text("Description    :   "),
+                                                                                                Expanded(
+                                                                                                  child: TextFormField(
+                                                                                                    textCapitalization: TextCapitalization.words,
+                                                                                                    controller: _descController,
+                                                                                                    maxLines: 5,
+                                                                                                    decoration: InputDecoration(
+                                                                                                      enabledBorder: OutlineInputBorder(
+                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.4), width: 2),
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                      focusedBorder: OutlineInputBorder(
+                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                      errorBorder: OutlineInputBorder(
+                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                      focusedErrorBorder: OutlineInputBorder(
+                                                                                                        borderSide: BorderSide(color: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.6), width: 2),
+                                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            SizedBox(height: 20),
+                                                                                            Row(
+                                                                                              mainAxisSize: MainAxisSize.min,
+                                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text('Task Tag    : '),
+                                                                                                Flexible(
+                                                                                                  fit: FlexFit.tight,
+                                                                                                  flex: 2,
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.only(left: 10),
+                                                                                                    child: Wrap(
+                                                                                                      runSpacing: 4,
+                                                                                                      spacing: 10,
+                                                                                                      alignment: WrapAlignment.start,
+                                                                                                      children: List.generate(
+                                                                                                        Provider.of<tasksList>(context, listen: false).getAvailabeTags.length,
+                                                                                                        (index) => Consumer<tasksList>(
+                                                                                                          builder: (context, value, child) => ChoiceChip(
+                                                                                                            backgroundColor: Provider.of<saveConfig>(context, listen: false).getAccent().withOpacity(0.3),
+                                                                                                            selected: Provider.of<tasksList>(context).selectedIndex == index,
+                                                                                                            label: Text(
+                                                                                                              Provider.of<tasksList>(
+                                                                                                                context,
+                                                                                                                listen: false,
+                                                                                                              ).getAvailabeTags[index],
+                                                                                                            ),
+                                                                                                            labelStyle: TextStyle(color: Provider.of<saveConfig>(context, listen: false).estimateColor(Provider.of<saveConfig>(context, listen: false).getAccent())),
+                                                                                                            onSelected: (selected) => Provider.of<tasksList>(context, listen: false).changeIndex(index),
+                                                                                                            selectedColor: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            SizedBox(height: 20),
+                                                                                            Center(
+                                                                                                child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              children: [
+                                                                                                RaisedButton(
+                                                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Update",
+                                                                                                      style: TextStyle(color: Colors.white),
+                                                                                                    ),
+                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    onPressed: () {
+                                                                                                      if (_editKey.currentState.validate()) {
+                                                                                                        Provider.of<tasksList>(context, listen: false).updateTask(_taskController.text, _descController.text, index);
+                                                                                                        Navigator.pop(context);
+                                                                                                      }
+                                                                                                    }),
+                                                                                                RaisedButton(
+                                                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Cancel",
+                                                                                                      style: TextStyle(color: Colors.white),
+                                                                                                    ),
+                                                                                                    color: Provider.of<saveConfig>(context, listen: false).getAccent(),
+                                                                                                    onPressed: () {
+                                                                                                      Navigator.pop(context);
+                                                                                                    })
+                                                                                              ],
+                                                                                            ))
+                                                                                          ],
+                                                                                        ),
+                                                                                      )),
+                                                                                ],
+                                                                              ));
+                                                                })
+                                                          ],
+                                                        ),
+                                                        children: [
+                                                          Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        15,
+                                                                    vertical:
+                                                                        10),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        "Task Title       :     "),
+                                                                    Text(value
+                                                                            .getTaskList[
+                                                                        index])
+                                                                  ],
+                                                                ),
+                                                                Row(children: [
+                                                                  Text(
+                                                                      'Task Done     :     '),
+                                                                  Text(value
+                                                                      .getStatus[
+                                                                          index]
+                                                                      .toString()),
+                                                                ]),
+                                                                Row(children: [
+                                                                  Text(
+                                                                      'Description   :   '),
+                                                                  value
+                                                                          .getTaskDescList[
+                                                                              index]
+                                                                          .isEmpty
+                                                                      ? Text(
+                                                                          "NA")
+                                                                      : Flexible(
+                                                                          child:
+                                                                              Text(value.getTaskDescList[index]),
+                                                                        )
+                                                                ]),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ]));
+                                          },
+                                          trailing: Container(
                                             padding: EdgeInsets.symmetric(
-                                              vertical: 5,
-                                              horizontal: 10,
-                                            ),
-                                            child: Text(
-                                              value.getDateTime[index],
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Color(0xFF1C1C1C)),
+                                                vertical: 0),
+                                            child: Card(
+                                              elevation: 0,
+                                              margin: EdgeInsets.only(
+                                                  right: 30, top: 2),
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    color:
+                                                        Provider.of<saveConfig>(
+                                                                context,
+                                                                listen: false)
+                                                            .getGradient()[0]
+                                                            .withOpacity(0.4),
+                                                    width: 3),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              color: Provider.of<saveConfig>(
+                                                      context,
+                                                      listen: false)
+                                                  .getAccent()
+                                                  .withOpacity(0.25),
+                                              child: Container(
+                                                height: 60,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 3),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 10,
+                                                ),
+                                                child: Text(
+                                                  value.getDateTime[index],
+                                                  style: TextStyle(
+                                                      fontSize: 13.5,
+                                                      color: Color(0xFF1C1C1C)),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        title: Text(
-                                          value.getTaskList[index],
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              fontSize: 20),
-                                        ),
-                                      ),
+                                          title: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5.0, top: 10, left: 2),
+                                            child: Text(
+                                              value.getTaskList[index],
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  decorationThickness: 3,
+                                                  decorationColor:
+                                                      Provider.of<saveConfig>(
+                                                              context,
+                                                              listen: false)
+                                                          .getAccent(),
+                                                  decorationStyle:
+                                                      TextDecorationStyle
+                                                          .solid),
+                                            ),
+                                          ),
+                                          subtitle: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0, bottom: 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Provider.of<tasksList>(context,
+                                                                listen: false)
+                                                            .getTag[index] !=
+                                                        'None'
+                                                    ? Container(
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Provider.of<
+                                                                            saveConfig>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .getAccent()
+                                                                    .withOpacity(
+                                                                        0.6),
+                                                                width: 2),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10,
+                                                            right: 5),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5,
+                                                                vertical: 2),
+                                                        child: Text(
+                                                          Provider.of<tasksList>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .getTag[index],
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10,
+                                                            right: 5),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5,
+                                                                vertical: 2),
+                                                      )
+                                              ],
+                                            ),
+                                          )),
                                     ),
                             ),
                           ),

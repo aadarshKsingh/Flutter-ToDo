@@ -17,13 +17,6 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
-estimateColor(Color accent) {
-  if (ThemeData.estimateBrightnessForColor(accent) == Brightness.dark)
-    return Colors.white;
-  else
-    return Colors.black;
-}
-
 class home extends StatefulWidget {
   @override
   _homeState createState() => _homeState();
@@ -62,21 +55,23 @@ class _letsdoitState extends State<letsdoit> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        floatingActionButton: FloatingActionButton.extended(
+        ActionButton: FloatingActionButton.extended(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           backgroundColor: Provider.of<saveConfig>(context).getAccent(),
           icon: Icon(Icons.create,
-              color: estimateColor(
-                  Provider.of<saveConfig>(context, listen: false).getAccent())),
+              color: Provider.of<saveConfig>(context, listen: false)
+                  .estimateColor(Provider.of<saveConfig>(context, listen: false)
+                      .getAccent())),
           label: Text(
             "Add Task",
             style: TextStyle(
                 fontSize: 20,
-                color: estimateColor(
-                    Provider.of<saveConfig>(context, listen: false)
-                        .getAccent())),
+                color: Provider.of<saveConfig>(context, listen: false)
+                    .estimateColor(
+                        Provider.of<saveConfig>(context, listen: false)
+                            .getAccent())),
           ),
           elevation: 20,
           onPressed: () async {

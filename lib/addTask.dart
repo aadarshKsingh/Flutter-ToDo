@@ -57,6 +57,7 @@ class _addTaskState extends State<addTask> {
             ], begin: Alignment.bottomLeft, end: Alignment.topRight),
           ),
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               shape: RoundedRectangleBorder(
@@ -73,142 +74,263 @@ class _addTaskState extends State<addTask> {
             ),
             body: Form(
               key: _taskKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                        child: TextFormField(
-                          style: TextStyle(color: Colors.white),
-                          maxLines: 2,
-                          autocorrect: true,
-                          autofocus: true,
-                          controller: taskContr,
-                          validator: (value) {
-                            if (value.isEmpty)
-                              return "Please enter some text";
-                            else if (Provider.of<tasksList>(context,
-                                    listen: false)
-                                .getTaskList
-                                .contains(value))
-                              return "Task already Added";
-                            else
-                              return null;
-                          },
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.4),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.6),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.6),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.6),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Task Title",
-                            hintText: "Enter your task",
-                            hintStyle: TextStyle(color: Colors.white),
-                            labelStyle: TextStyle(
-                                fontFamily: "OnePlusSans",
-                                fontSize: 17,
-                                color: Colors.white),
-                          ),
-                        ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                        child: TextFormField(
-                          style: TextStyle(color: Colors.white),
-                          autocorrect: true,
-                          maxLines: 10,
-                          controller: taskContr2,
-                          textCapitalization: TextCapitalization.words,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.4),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white.withOpacity(0.6),
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Task Description(Optional)",
-                            hintText: "Enter your task Description",
-                            hintStyle: TextStyle(color: Colors.white),
-                            labelStyle: TextStyle(
-                                fontFamily: "OnePlusSans",
-                                fontSize: 17,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Center(
-                      child: RaisedButton(
-                        padding: EdgeInsets.all(0),
-                        color: Provider.of<saveConfig>(context).getAccent(),
-                        textColor: Colors.white.withOpacity(0.6),
-                        child: Text(
-                          "Add",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        onPressed: () {
-                          if (_taskKey.currentState.validate()) {
-                            _updateTasks(
-                                taskContr.text, taskContr2.text, context);
-                            Navigator.pop(context);
-                            Fluttertoast.showToast(
-                                msg: "Task Added",
-                                gravity: ToastGravity.BOTTOM);
-                          }
+                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      child: TextFormField(
+                        style: TextStyle(
+                            color:
+                                Provider.of<saveConfig>(context, listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])),
+                        maxLines: 1,
+                        autocorrect: true,
+                        autofocus: true,
+                        controller: taskContr,
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "Please enter some text";
+                          else
+                            return null;
                         },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.4),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.6),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.6),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.6),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          labelText: "Task Title",
+                          hintText: "Enter your task",
+                          hintStyle: TextStyle(
+                              color: Provider.of<saveConfig>(context,
+                                      listen: false)
+                                  .estimateColor(Provider.of<saveConfig>(
+                                          context,
+                                          listen: false)
+                                      .getGradient()[0])),
+                          labelStyle: TextStyle(
+                              fontFamily: "OnePlusSans",
+                              fontSize: 17,
+                              color: Provider.of<saveConfig>(context,
+                                      listen: false)
+                                  .estimateColor(Provider.of<saveConfig>(
+                                          context,
+                                          listen: false)
+                                      .getGradient()[0])),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        autocorrect: true,
+                        maxLines: 7,
+                        controller: taskContr2,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.4),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])
+                                    .withOpacity(0.6),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          labelText: "Task Description(Optional)",
+                          hintText: "Enter your task Description",
+                          hintStyle: TextStyle(
+                              color: Provider.of<saveConfig>(context,
+                                      listen: false)
+                                  .estimateColor(Provider.of<saveConfig>(
+                                          context,
+                                          listen: false)
+                                      .getGradient()[0])),
+                          labelStyle: TextStyle(
+                            fontFamily: "OnePlusSans",
+                            fontSize: 17,
+                            color:
+                                Provider.of<saveConfig>(context, listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0]),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+                      child: Text(
+                        "Tags : ",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color:
+                                Provider.of<saveConfig>(context, listen: false)
+                                    .estimateColor(Provider.of<saveConfig>(
+                                            context,
+                                            listen: false)
+                                        .getGradient()[0])),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Wrap(
+                          runSpacing: 5,
+                          spacing: 10,
+                          alignment: WrapAlignment.start,
+                          children: List.generate(
+                            Provider.of<tasksList>(context, listen: false)
+                                .getAvailabeTags
+                                .length,
+                            (index) => Consumer<tasksList>(
+                              builder: (context, value, child) => ChoiceChip(
+                                backgroundColor: Provider.of<saveConfig>(
+                                        context,
+                                        listen: false)
+                                    .getAccent()
+                                    .withOpacity(0.3),
+                                selected: Provider.of<tasksList>(context)
+                                        .selectedIndex ==
+                                    index,
+                                label: Text(
+                                  Provider.of<tasksList>(
+                                    context,
+                                    listen: false,
+                                  ).getAvailabeTags[index],
+                                ),
+                                labelStyle: TextStyle(
+                                    color: Provider.of<saveConfig>(context,
+                                            listen: false)
+                                        .estimateColor(Provider.of<saveConfig>(
+                                                context,
+                                                listen: false)
+                                            .getAccent())),
+                                onSelected: (selected) =>
+                                    Provider.of<tasksList>(context,
+                                            listen: false)
+                                        .changeIndex(index),
+                                selectedColor: Provider.of<saveConfig>(context,
+                                        listen: false)
+                                    .getAccent(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: RaisedButton(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                      color: Provider.of<saveConfig>(context).getAccent(),
+                      textColor: Provider.of<saveConfig>(context, listen: false)
+                          .estimateColor(
+                              Provider.of<saveConfig>(context, listen: false)
+                                  .getAccent()),
+                      child: Text(
+                        "Add",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      onPressed: () {
+                        if (_taskKey.currentState.validate()) {
+                          _updateTasks(
+                              taskContr.text, taskContr2.text, context);
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                              msg: "Task Added", gravity: ToastGravity.BOTTOM);
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
