@@ -28,26 +28,16 @@ List<Color> background2 = [
   Color(0xFF8e9eab),
 ];
 List<Color> AccentColor = [
-  Colors.amber,
-  Colors.deepPurpleAccent,
+  Color(0xFFe53935),
+  Color(0xFF3498db),
   Colors.lightBlueAccent,
   Colors.blueGrey,
-  Colors.deepOrangeAccent,
-  Color(0xFFe67e22),
   Color(0xFF1abc9c),
-  Color(0xFF3498db),
-  Colors.deepPurple,
-  Colors.greenAccent,
+  Colors.deepPurpleAccent,
   Colors.indigoAccent,
-  Color(0xFF2c3e50),
-  Colors.limeAccent,
-  Color(0xFFe53935),
-  Colors.redAccent,
+  Colors.deepOrangeAccent,
   Color(0xFF6fa5fc),
-  Color(0xFFEF6950),
-  Color(0xFF34495e),
-  Colors.black12,
-  Color(0xFFFFB900),
+  Color(0xFF2c3e50),
 ];
 
 class settings extends StatelessWidget {
