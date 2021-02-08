@@ -86,8 +86,11 @@ class _letsdoitState extends State<letsdoit> {
         appBar: AppBar(
           elevation: 10,
           toolbarHeight: 60.2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
+          ),
           title: Text(
             "Lets Do It!",
             style: TextStyle(fontSize: 25),

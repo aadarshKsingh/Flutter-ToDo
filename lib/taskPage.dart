@@ -96,10 +96,14 @@ class _taskPageState extends State<taskPage> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
-                            padding: EdgeInsets.fromLTRB(40, 40, 260, 0),
+                            padding: EdgeInsets.fromLTRB(40, 30, 260, 0),
                           ),
                           secondaryBackground: Padding(
-                            padding: EdgeInsets.fromLTRB(300, 40, 0, 0),
+                            padding: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width - 140,
+                                30,
+                                30,
+                                0),
                             child: Text(
                               "Remove Task",
                               style: TextStyle(

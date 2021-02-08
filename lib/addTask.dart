@@ -63,7 +63,10 @@ class _addTaskState extends State<addTask> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
+              ),
               leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
