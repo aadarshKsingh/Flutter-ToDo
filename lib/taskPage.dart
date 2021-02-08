@@ -279,30 +279,32 @@ class _taskPageState extends State<taskPage> {
                                                                                           SizedBox(height: 10),
                                                                                           Row(
                                                                                             mainAxisSize: MainAxisSize.min,
-                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
                                                                                             children: [
-                                                                                              Text('Task Tag    : '),
+                                                                                              Text('Task Tag    :     '),
                                                                                               Flexible(
                                                                                                 fit: FlexFit.tight,
                                                                                                 flex: 2,
-                                                                                                child: GridView.builder(
-                                                                                                    shrinkWrap: true,
-                                                                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 0.0, mainAxisSpacing: 0.0, childAspectRatio: 1 / 0.6),
-                                                                                                    itemCount: model_tasksList.getAvailabeTags.length,
-                                                                                                    itemBuilder: (context, index) {
-                                                                                                      return Consumer<tasksList>(
-                                                                                                        builder: (context, value, child) => ChoiceChip(
-                                                                                                          backgroundColor: model_saveConfig.getAccent().withOpacity(0.3),
-                                                                                                          selected: model_tasksList.selectedIndex == index,
-                                                                                                          label: Text(
-                                                                                                            model_tasksList.getAvailabeTags[index],
-                                                                                                          ),
-                                                                                                          labelStyle: TextStyle(color: model_saveConfig.estimateColor(model_saveConfig.getAccent())),
-                                                                                                          onSelected: (selected) => model_tasksList.changeIndex(index),
-                                                                                                          selectedColor: model_saveConfig.getAccent(),
+                                                                                                child: Wrap(
+                                                                                                  runSpacing: 5,
+                                                                                                  spacing: 10,
+                                                                                                  alignment: WrapAlignment.start,
+                                                                                                  children: List.generate(
+                                                                                                    model_tasksList.getAvailabeTags.length,
+                                                                                                    (index) => Consumer<tasksList>(
+                                                                                                      builder: (context, value, child) => ChoiceChip(
+                                                                                                        backgroundColor: model_saveConfig.getAccent().withOpacity(0.3),
+                                                                                                        selected: model_tasksList.selectedIndex == index,
+                                                                                                        label: Text(
+                                                                                                          model_tasksList.getAvailabeTags[index],
                                                                                                         ),
-                                                                                                      );
-                                                                                                    }),
+                                                                                                        labelStyle: TextStyle(color: model_saveConfig.estimateColor(model_saveConfig.getAccent())),
+                                                                                                        onSelected: (selected) => model_tasksList.changeIndex(index),
+                                                                                                        selectedColor: model_saveConfig.getAccent(),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
                                                                                               ),
                                                                                             ],
                                                                                           ),
