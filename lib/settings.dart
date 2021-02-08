@@ -52,6 +52,7 @@ List<Color> AccentColor = [
 
 class settings extends StatelessWidget {
   Widget build(BuildContext context) {
+    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'OnePlusSans',
@@ -75,7 +76,7 @@ class settings extends StatelessWidget {
               return Column(
                 children: [
                   ListTile(
-                      title: Text("Choose background"),
+                      title: Text("Choose theme"),
                       onTap: () => showModalBottomSheet<dynamic>(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
@@ -112,57 +113,17 @@ class settings extends StatelessWidget {
                                                     end: Alignment.topRight)),
                                           ),
                                           onTap: () {
-                                            Provider.of<saveConfig>(context,
-                                                    listen: false)
-                                                .changeBackground(
-                                                    background1[index],
-                                                    background2[index]);
+                                            model_saveConfig.changeBackground(
+                                                background1[index],
+                                                background2[index]);
+                                            model_saveConfig.changeAccent(
+                                                AccentColor[index]);
                                             Navigator.pop(context);
                                           }),
                                     );
                                   }),
                             );
                           })),
-                  ListTile(
-                    title: Text("Choose Accent Color"),
-                    onTap: () => showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                      ),
-                      context: context,
-                      builder: (context) => Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 20,
-                        ),
-                        child: GridView.builder(
-                            itemCount: AccentColor.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10),
-                            itemBuilder: (context, index) {
-                              return MaterialButton(
-                                shape: CircleBorder(),
-                                color: AccentColor[index],
-                                onPressed: () {
-                                  Provider.of<saveConfig>(context,
-                                          listen: false)
-                                      .changeAccent(AccentColor[index]);
-                                  Navigator.pop(context);
-                                },
-                              );
-                            }),
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.color_lens_rounded,
-                      color: Provider.of<saveConfig>(context).getAccent(),
-                    ),
-                  ),
                   ListTile(
                     title: Text("Reset settings"),
                     onTap: () => Provider.of<saveConfig>(context, listen: false)
