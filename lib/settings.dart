@@ -43,12 +43,9 @@ List<Color> AccentColor = [
 class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'OnePlusSans',
-        primaryColor: Provider.of<saveConfig>(context).getAccent(),
-      ),
-      home: Scaffold(
+    return Material(
+      color: Provider.of<saveConfig>(context).getAccent(),
+      child: Scaffold(
         appBar: AppBar(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

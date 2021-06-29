@@ -5,12 +5,9 @@ import 'package:provider/provider.dart';
 class about extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'OnePlusSans',
-        primaryColor: Provider.of<saveConfig>(context).getAccent(),
-      ),
-      home: Scaffold(
+    return Material(
+      color: Provider.of<saveConfig>(context).getAccent(),
+      child: Scaffold(
         appBar: AppBar(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

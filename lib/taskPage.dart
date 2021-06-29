@@ -74,7 +74,6 @@ class _taskPageState extends State<taskPage> {
                               letterSpacing: 4,
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
-                              fontFamily: 'OnePlusSans',
                               color: model_saveConfig.estimateColor(
                                   model_saveConfig.getGradient()[0])),
                         )

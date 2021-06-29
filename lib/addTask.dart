@@ -43,12 +43,9 @@ class _addTaskState extends State<addTask> {
           currentFocus.unfocus();
         }
       },
-      child: MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'OnePlusSans',
-          primaryColor: model_saveConfig.getAccent(),
-        ),
-        home: Container(
+      child: Material(
+        color: model_saveConfig.getAccent(),
+        child: Container(
           padding: EdgeInsets.only(
             top: 5,
           ),
@@ -147,7 +144,6 @@ class _addTaskState extends State<addTask> {
                               color: model_saveConfig.estimateColor(
                                   model_saveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
-                              fontFamily: "OnePlusSans",
                               fontSize: 17,
                               color: model_saveConfig.estimateColor(
                                   model_saveConfig.getGradient()[0])),
@@ -195,7 +191,6 @@ class _addTaskState extends State<addTask> {
                               color: model_saveConfig.estimateColor(
                                   model_saveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
-                            fontFamily: "OnePlusSans",
                             fontSize: 17,
                             color: model_saveConfig.estimateColor(
                                 model_saveConfig.getGradient()[0]),

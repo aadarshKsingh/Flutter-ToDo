@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:letsdoit/saveConfig.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -29,7 +30,6 @@ class _homeState extends State<home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getConfig();
     super.initState();
   }
@@ -38,7 +38,7 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          fontFamily: 'OnePlusSans',
+          textTheme: GoogleFonts.notoSansTextTheme(),
           primaryColor: Provider.of<saveConfig>(context).getAccent()),
       home: Scaffold(body: letsdoit()),
     );
