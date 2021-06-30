@@ -38,7 +38,7 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.notoSansTextTheme(),
+          textTheme: GoogleFonts.rubikTextTheme(),
           primaryColor: Provider.of<saveConfig>(context).getAccent()),
       home: Scaffold(body: letsdoit()),
     );
