@@ -14,8 +14,8 @@ _updateTasks(String title, String subtitle, BuildContext context) {
 }
 
 class _addTaskState extends State<addTask> {
-  TextEditingController taskContr;
-  TextEditingController taskContr2;
+  TextEditingController? taskContr;
+  TextEditingController? taskContr2;
   final _taskKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -26,8 +26,8 @@ class _addTaskState extends State<addTask> {
 
   @override
   void dispose() {
-    taskContr.dispose();
-    taskContr2.dispose();
+    taskContr!.dispose();
+    taskContr2!.dispose();
     super.dispose();
   }
 
@@ -96,7 +96,7 @@ class _addTaskState extends State<addTask> {
                         autofocus: true,
                         controller: taskContr,
                         validator: (value) {
-                          if (value.isEmpty)
+                          if (value!.isEmpty)
                             return "Please enter some text";
                           else if (tasksList().getTag.contains(value))
                             return "Please add a different task";
@@ -268,9 +268,9 @@ class _addTaskState extends State<addTask> {
                         ),
                       ),
                       onPressed: () {
-                        if (_taskKey.currentState.validate()) {
+                        if (_taskKey.currentState!.validate()) {
                           _updateTasks(
-                              taskContr.text, taskContr2.text, context);
+                              taskContr!.text, taskContr2!.text, context);
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                               msg: "Task Added", gravity: ToastGravity.BOTTOM);

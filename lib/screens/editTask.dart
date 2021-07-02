@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:letsdoit/screens/taskPage.dart';
+
 import 'package:letsdoit/utils/tasksList.dart';
 import 'package:provider/provider.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
 
 Widget editTask(
     BuildContext context,
-    TextEditingController _taskController,
-    TextEditingController _descController,
+    TextEditingController? _taskController,
+    TextEditingController? _descController,
     tasksList value,
     int index,
     saveConfig model_saveConfig,
@@ -30,8 +30,8 @@ Widget editTask(
               icon: Icon(Icons.edit),
               onPressed: () {
                 Navigator.pop(context);
-                _taskController.text = value.getTaskList[index];
-                _descController.text = value.getTaskDescList[index];
+                _taskController!.text = value.getTaskList[index];
+                _descController!.text = value.getTaskDescList[index];
                 model_tasksList.selectedIndex = model_tasksList.getAvailabeTags
                     .indexOf(model_tasksList.getTag[index]);
 
@@ -56,7 +56,7 @@ Widget editTask(
                                       Expanded(
                                         child: TextFormField(
                                           validator: (value) {
-                                            if (value.isEmpty)
+                                            if (value!.isEmpty)
                                               return "Please enter some text";
                                             else
                                               return null;
@@ -230,7 +230,7 @@ Widget editTask(
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                if (_editKey.currentState
+                                                if (_editKey.currentState!
                                                     .validate()) {
                                                   model_tasksList.updateTask(
                                                       _taskController.text,

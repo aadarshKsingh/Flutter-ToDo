@@ -9,8 +9,8 @@ Widget taskCard(
     tasksList model_tasksList,
     int index,
     tasksList value,
-    TextEditingController _descController,
-    TextEditingController _taskController) {
+    TextEditingController? _descController,
+    TextEditingController? _taskController) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(10),
     child: ListTile(

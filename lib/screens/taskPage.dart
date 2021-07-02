@@ -15,8 +15,8 @@ class _taskPageState extends State<taskPage> {
     await Provider.of<tasksList>(context, listen: false).readContent();
   }
 
-  TextEditingController _taskController;
-  TextEditingController _descController;
+  TextEditingController? _taskController;
+  TextEditingController? _descController;
 
   @override
   void initState() {
@@ -28,8 +28,8 @@ class _taskPageState extends State<taskPage> {
 
   @override
   void dispose() {
-    _taskController.dispose();
-    _descController.dispose();
+    _taskController!.dispose();
+    _descController!.dispose();
     super.dispose();
   }
 
