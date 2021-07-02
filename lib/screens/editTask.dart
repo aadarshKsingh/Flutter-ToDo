@@ -215,18 +215,20 @@ Widget editTask(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          RaisedButton(
-                                              shape: RoundedRectangleBorder(
+                                          ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: model_saveConfig
+                                                    .getAccent(),
+                                                shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
                                               child: Text(
                                                 "Update",
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
-                                              color:
-                                                  model_saveConfig.getAccent(),
                                               onPressed: () {
                                                 if (_editKey.currentState
                                                     .validate()) {
@@ -238,18 +240,20 @@ Widget editTask(
                                                   Navigator.pop(context);
                                                 }
                                               }),
-                                          RaisedButton(
-                                              shape: RoundedRectangleBorder(
+                                          ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: model_saveConfig
+                                                    .getAccent(),
+                                                shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
                                               child: Text(
                                                 "Cancel",
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
-                                              color:
-                                                  model_saveConfig.getAccent(),
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               })

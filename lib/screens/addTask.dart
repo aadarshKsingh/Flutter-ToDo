@@ -249,19 +249,23 @@ class _addTaskState extends State<addTask> {
                     ],
                   ),
                   Center(
-                    child: RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-                      color: model_saveConfig.getAccent(),
-                      textColor: model_saveConfig
-                          .estimateColor(model_saveConfig.getAccent()),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: model_saveConfig.getAccent(),
+                        elevation: 10,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
                       child: Text(
                         "Add",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: model_saveConfig
+                              .estimateColor(model_saveConfig.getAccent()),
+                        ),
                       ),
                       onPressed: () {
                         if (_taskKey.currentState.validate()) {
