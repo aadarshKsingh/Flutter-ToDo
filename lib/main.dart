@@ -1,12 +1,12 @@
-import 'package:letsdoit/about.dart';
-import 'package:letsdoit/addTask.dart';
-import 'package:letsdoit/taskPage.dart';
-import 'package:letsdoit/settings.dart';
-import 'package:letsdoit/tasksList.dart';
-import 'Constants.dart';
+import 'package:letsdoit/screens//about.dart';
+import 'package:letsdoit/screens/addTask.dart';
+import 'package:letsdoit/screens/taskPage.dart';
+import 'package:letsdoit/screens/settings.dart';
+import 'package:letsdoit/utils/tasksList.dart';
+import 'package:letsdoit/constants/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:letsdoit/saveConfig.dart';
+import 'package:letsdoit/utils/saveConfig.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 

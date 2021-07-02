@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:letsdoit/saveConfig.dart';
+import 'package:letsdoit/utils/saveConfig.dart';
 
 List<String> Settings = ['Themes'];
 List<Color> background1 = [

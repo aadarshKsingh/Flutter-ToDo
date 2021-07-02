@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'tasksList.dart';
+import 'package:letsdoit/utils/tasksList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:letsdoit/saveConfig.dart';
+import 'package:letsdoit/utils/saveConfig.dart';
 
 class addTask extends StatefulWidget {
   @override
@@ -98,6 +98,8 @@ class _addTaskState extends State<addTask> {
                         validator: (value) {
                           if (value.isEmpty)
                             return "Please enter some text";
+                          else if (tasksList().getTag.contains(value))
+                            return "Please add a different task";
                           else
                             return null;
                         },

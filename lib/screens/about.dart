@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letsdoit/saveConfig.dart';
+import 'package:letsdoit/utils/saveConfig.dart';
 import 'package:provider/provider.dart';
 
 class about extends StatelessWidget {
