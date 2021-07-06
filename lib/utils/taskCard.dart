@@ -11,8 +11,9 @@ Widget taskCard(
     tasksList value,
     TextEditingController? _descController,
     TextEditingController? _taskController) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(10),
+  return ListTileTheme(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10))),
     child: ListTile(
       tileColor: model_saveConfig.getAccent().withOpacity(0.3),
       contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
