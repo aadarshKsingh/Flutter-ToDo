@@ -115,6 +115,51 @@ class settings extends StatelessWidget {
                             );
                           })),
                   ListTile(
+                    title: Text("Change Task View"),
+                    onTap: () => showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        context: context,
+                        builder: (context) => Wrap(children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                        title: Text("List View"),
+                                        trailing:
+                                            model_saveConfig.getView() == true
+                                                ? Icon(
+                                                    Icons.check,
+                                                    color: model_saveConfig
+                                                        .getAccent(),
+                                                  )
+                                                : const SizedBox(),
+                                        onTap: () =>
+                                            model_saveConfig.changeView(true)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                      title: Text("Grid View"),
+                                      trailing: model_saveConfig.getView() ==
+                                              false
+                                          ? Icon(
+                                              Icons.check,
+                                              color:
+                                                  model_saveConfig.getAccent(),
+                                            )
+                                          : const SizedBox(),
+                                      onTap: () =>
+                                          model_saveConfig.changeView(false),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ])),
+                  ),
+                  ListTile(
                     title: Text("Reset settings"),
                     onTap: () => Provider.of<saveConfig>(context, listen: false)
                         .resetConfig(),

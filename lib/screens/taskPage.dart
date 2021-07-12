@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:letsdoit/screens/editTask.dart';
+import 'package:letsdoit/utils/gridCard.dart';
 import 'package:letsdoit/utils/taskCard.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:letsdoit/utils/tasksList.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
+import 'package:letsdoit/screens/settings.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class taskPage extends StatefulWidget {
   @override
@@ -74,61 +78,124 @@ class _taskPageState extends State<taskPage> {
                         )
                       //<--------------------Tasks List Here------------------>
 
-                      : ListView.builder(
-                          itemCount: value.getTaskList.length,
-                          itemBuilder: (context, index) {
-                            return Dismissible(
-                              dismissThresholds: {
-                                DismissDirection.startToEnd: 0.7,
-                                DismissDirection.endToStart: 0.7
-                              },
-                              background: Padding(
-                                child: Text(
-                                  "Remove Task",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                      : model_saveConfig.getView()
+                          ? ListView.builder(
+                              itemCount: value.getTaskList.length,
+                              itemBuilder: (context, index) {
+                                return Dismissible(
+                                  dismissThresholds: {
+                                    DismissDirection.startToEnd: 0.7,
+                                    DismissDirection.endToStart: 0.7
+                                  },
+                                  background: Padding(
+                                    child: Text(
+                                      "Remove Task",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                    padding:
+                                        EdgeInsets.fromLTRB(40, 30, 260, 0),
+                                  ),
+                                  secondaryBackground: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width - 140,
+                                        30,
+                                        30,
+                                        0),
+                                    child: Text(
+                                      "Remove Task",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  key: ValueKey(value.getTaskList[index]),
+                                  onDismissed: (direction) {
+                                    model_tasksList.removeTaskValue(index);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 5),
+                                    child: Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 5, vertical: 0.2),
+                                        elevation: 3,
+                                        child: taskCard(
+                                            context,
+                                            model_saveConfig,
+                                            model_tasksList,
+                                            index,
+                                            value,
+                                            _descController,
+                                            _taskController)),
+                                  ),
+                                );
+                              })
+                          : Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: StaggeredGridView.countBuilder(
+                                crossAxisCount: 2,
+                                itemCount: model_tasksList.getTaskList.length,
+                                itemBuilder: (context, index) => Dismissible(
+                                  key: ValueKey(value.getTaskList[index]),
+                                  dismissThresholds: {
+                                    DismissDirection.startToEnd: 0.7,
+                                    DismissDirection.endToStart: 0.7
+                                  },
+                                  background: Container(
+                                    padding: EdgeInsets.only(left: 10),
+                                    height: double.infinity,
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Remove Task",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  secondaryBackground: Container(
+                                    padding: EdgeInsets.only(right: 10),
+                                    height: double.infinity,
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "Remove Task",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  onDismissed: (direction) {
+                                    model_tasksList.removeTaskValue(index);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(),
+                                    child: Card(
+                                        elevation: 3,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 2, vertical: 2),
+                                        child: gridCard(
+                                            context,
+                                            model_saveConfig,
+                                            model_tasksList,
+                                            index,
+                                            value,
+                                            _descController,
+                                            _taskController)),
+                                  ),
                                 ),
-                                padding: EdgeInsets.fromLTRB(40, 30, 260, 0),
+                                staggeredTileBuilder: (index) =>
+                                    StaggeredTile.fit(1),
+                                mainAxisSpacing: 4.0,
+                                crossAxisSpacing: 4.0,
                               ),
-                              secondaryBackground: Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    MediaQuery.of(context).size.width - 140,
-                                    30,
-                                    30,
-                                    0),
-                                child: Text(
-                                  "Remove Task",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                              ),
-                              key: ValueKey(value.getTaskList[index]),
-                              onDismissed: (direction) {
-                                model_tasksList.removeTaskValue(index);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 5, vertical: 0.2),
-                                    elevation: 3,
-                                    child: taskCard(
-                                        context,
-                                        model_saveConfig,
-                                        model_tasksList,
-                                        index,
-                                        value,
-                                        _descController,
-                                        _taskController)),
-                              ),
-                            );
-                          }),
+                            ),
                 );
               }),
             ),

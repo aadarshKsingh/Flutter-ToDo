@@ -10,7 +10,7 @@ class saveConfig extends ChangeNotifier {
   String accent = 'Color(0xFFe53935)';
   String background1 = 'Color(0xFFff9966)';
   String background2 = 'Color(0xFFff5e62)';
-
+  bool _viewMode = true;
   static final key = encrypt.Key.fromLength(32);
   static final iv = encrypt.IV.fromLength(16);
   static final encrypter = encrypt.Encrypter(encrypt.AES(key));
@@ -35,6 +35,12 @@ class saveConfig extends ChangeNotifier {
   changeBackground(Color Color1, Color Color2) {
     background1 = Color1.toString();
     background2 = Color2.toString();
+    writeConfig();
+    notifyListeners();
+  }
+
+  changeView(bool value) {
+    _viewMode = value;
     writeConfig();
     notifyListeners();
   }
@@ -71,6 +77,10 @@ class saveConfig extends ChangeNotifier {
     return gradient;
   }
 
+  getView() {
+    return _viewMode;
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -89,6 +99,7 @@ class saveConfig extends ChangeNotifier {
       accent = data['accent'].toString();
       background1 = data['background1'];
       background2 = data['background2'];
+      _viewMode = data['viewMode'];
       notifyListeners();
     } catch (FileSystemException) {
       File file = await _localFile;
@@ -100,6 +111,7 @@ class saveConfig extends ChangeNotifier {
     configJSON['accent'] = accent;
     configJSON['background1'] = background1;
     configJSON['background2'] = background2;
+    configJSON['viewMode'] = _viewMode;
     var serializedMap = _encryptJSON(utf8.encode(jsonEncode(configJSON)));
     File f = await _localFile;
     await f.writeAsBytes(serializedMap);
