@@ -11,74 +11,87 @@ Widget viewTask(
     int index,
     saveConfig model_saveConfig,
     tasksList model_tasksList) {
-  final _editKey = GlobalKey<FormState>();
   return SimpleDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.description_rounded,
-          ),
-          Center(
-            child: Text("Task Details"),
-          ),
-          IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                Navigator.pop(context);
-                _taskController!.text = value.getTaskList[index];
-                _descController!.text = value.getTaskDescList[index];
-                model_tasksList.selectedIndex = model_tasksList.getAvailabeTags
-                    .indexOf(model_tasksList.getTag[index]);
-                showDialog(
-                    context: context,
-                    builder: (context) => editTask(
-                        context,
-                        _taskController,
-                        _descController,
-                        value,
-                        index,
-                        model_saveConfig,
-                        model_tasksList));
-              })
-        ],
-      ),
+    titlePadding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    title: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  Text("Task Title       :     "),
-                  Flexible(
-                      child: Text(
-                    value.getTaskList[index],
-                    softWrap: true,
-                  ))
-                ],
-              ),
-              Row(children: [
-                Text('Task Done     :     '),
-                Text(value.getStatus[index].toString()),
-              ]),
-              Row(children: [
-                Text('Description   :   '),
-                value.getTaskDescList[index].isEmpty
-                    ? Text("NA")
-                    : Flexible(
-                        child: Text(
-                          value.getTaskDescList[index],
-                          softWrap: true,
-                        ),
-                      )
-              ]),
-            ],
+        Center(
+          child: Text(
+            "Task Details",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-        )
-      ]);
+        ),
+        IconButton(
+            splashRadius: 10,
+            padding: EdgeInsets.all(0),
+            alignment: Alignment.centerRight,
+            icon: Icon(
+              Icons.edit,
+              size: 25,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+              _taskController!.text = value.getTaskList[index];
+              _descController!.text = value.getTaskDescList[index];
+              model_tasksList.selectedIndex = model_tasksList.getAvailabeTags
+                  .indexOf(model_tasksList.getTag[index]);
+              showDialog(
+                  context: context,
+                  builder: (context) => editTask(
+                      context,
+                      _taskController,
+                      _descController,
+                      value,
+                      index,
+                      model_saveConfig,
+                      model_tasksList));
+            })
+      ],
+    ),
+    children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Table(
+          columnWidths: {
+            0: FlexColumnWidth(1),
+            1: FlexColumnWidth(0.2),
+            2: FlexColumnWidth(1)
+          },
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          children: [
+            TableRow(
+              children: [
+                Text("Task Title"),
+                Text(':'),
+                Text(
+                  value.getTaskList[index],
+                  softWrap: true,
+                )
+              ],
+            ),
+            TableRow(children: [
+              Text('Task Done'),
+              Text(':'),
+              Text(value.getStatus[index].toString()),
+            ]),
+            TableRow(children: [
+              Text('Description'),
+              Text(':'),
+              value.getTaskDescList[index].isEmpty
+                  ? Text("NA")
+                  : Text(
+                      value.getTaskDescList[index],
+                      softWrap: true,
+                    )
+            ]),
+          ],
+        ),
+      ),
+    ],
+  );
 }
