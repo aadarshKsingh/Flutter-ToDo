@@ -21,65 +21,77 @@ Widget editTask(
   return SimpleDialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     children: [
+      Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0, top: 10),
+          child: Text(
+            "Edit Task",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 20,
+      ),
       Container(
         width: MediaQuery.of(context).size.width - 30,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: Form(
           key: _editKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Table(
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            columnWidths: {
+              0: FlexColumnWidth(1),
+              1: FlexColumnWidth(0.5),
+              2: FlexColumnWidth(3)
+            },
             children: [
-              Row(children: [
-                Text("Task Title       :      "),
-                Expanded(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty)
-                        return "Please enter some text";
-                      else
-                        return null;
-                    },
-                    controller: _taskController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                model_saveConfig.getAccent().withOpacity(0.4),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                model_saveConfig.getAccent().withOpacity(0.6),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                model_saveConfig.getAccent().withOpacity(0.6),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                model_saveConfig.getAccent().withOpacity(0.6),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              TableRow(children: [
+                Text("Task Title"),
+                Text(":"),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty)
+                      return "Please enter some text";
+                    else
+                      return null;
+                  },
+                  controller: _taskController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: model_saveConfig.getAccent().withOpacity(0.4),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 )
               ]),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
+              TableRow(
                 children: [
-                  Text("Description    :   "),
-                  Expanded(
+                  Text("Description"),
+                  Text(":"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextFormField(
                       textCapitalization: TextCapitalization.words,
                       controller: _descController,
@@ -118,87 +130,80 @@ Widget editTask(
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+              TableRow(
                 children: [
-                  Text('Task Tag    :     '),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 2,
-                    child: Wrap(
-                      runSpacing: 5,
-                      spacing: 10,
-                      alignment: WrapAlignment.start,
-                      children: List.generate(
-                        model_tasksList.getAvailabeTags.length,
-                        (index) => Consumer<tasksList>(
-                          builder: (context, value, child) => ChoiceChip(
-                            backgroundColor:
-                                model_saveConfig.getAccent().withOpacity(0.3),
-                            selected: model_tasksList.selectedIndex == index,
-                            label: Text(
-                              model_tasksList.getAvailabeTags[index],
-                            ),
-                            labelStyle: TextStyle(
-                                color: model_saveConfig.estimateColor(
-                                    model_saveConfig.getAccent())),
-                            onSelected: (selected) =>
-                                model_tasksList.changeIndex(index),
-                            selectedColor: model_saveConfig.getAccent(),
+                  Text('Task Tag'),
+                  Text(":"),
+                  Wrap(
+                    spacing: 10,
+                    alignment: WrapAlignment.start,
+                    children: List.generate(
+                      model_tasksList.getAvailabeTags.length,
+                      (index) => Consumer<tasksList>(
+                        builder: (context, value, child) => ChoiceChip(
+                          backgroundColor:
+                              model_saveConfig.getAccent().withOpacity(0.3),
+                          selected: model_tasksList.selectedIndex == index,
+                          label: Text(
+                            model_tasksList.getAvailabeTags[index],
                           ),
+                          labelStyle: TextStyle(
+                              color: model_saveConfig
+                                  .estimateColor(model_saveConfig.getAccent())),
+                          onSelected: (selected) =>
+                              model_tasksList.changeIndex(index),
+                          selectedColor: model_saveConfig.getAccent(),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: model_saveConfig.getAccent(),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Update",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          if (_editKey.currentState!.validate()) {
-                            model_tasksList.updateTask(_taskController.text,
-                                _descController.text, index);
-
-                            Navigator.pop(context);
-                          }
-                        }),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: model_saveConfig.getAccent(),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                ),
-              )
             ],
           ),
         ),
       ),
+      const SizedBox(
+        height: 20,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: model_saveConfig.getAccent(),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: Text(
+                "Update",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                if (_editKey.currentState!.validate()) {
+                  model_tasksList.updateTask(
+                      _taskController.text, _descController.text, index);
+
+                  Navigator.pop(context);
+                }
+              }),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: model_saveConfig.getAccent(),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: Text(
+                "Cancel",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              })
+        ],
+      )
     ],
   );
 }
