@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
 import 'package:letsdoit/utils/tasksList.dart';
-import 'package:letsdoit/screens/editTask.dart';
+import 'package:letsdoit/screens/viewTask.dart';
 
 Widget taskCard(
     BuildContext context,
@@ -32,7 +32,7 @@ Widget taskCard(
       onTap: () {
         showDialog(
             context: context,
-            builder: (_) => editTask(context, _taskController, _descController,
+            builder: (_) => viewTask(context, _taskController, _descController,
                 value, index, model_saveConfig, model_tasksList));
       },
       trailing: Card(

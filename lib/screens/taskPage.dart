@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letsdoit/screens/editTask.dart';
+import 'package:letsdoit/screens/viewTask.dart';
 import 'package:letsdoit/utils/gridCard.dart';
 import 'package:letsdoit/utils/taskCard.dart';
 import 'package:provider/provider.dart';
