@@ -5,43 +5,43 @@ import 'package:letsdoit/screens/viewTask.dart';
 
 Widget taskCard(
     BuildContext context,
-    saveConfig model_saveConfig,
-    tasksList model_tasksList,
+    SaveConfig modelSaveConfig,
+    TasksList modelTasksList,
     int index,
-    tasksList value,
+    TasksList value,
     TextEditingController? _descController,
     TextEditingController? _taskController) {
   return ListTileTheme(
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
     child: ListTile(
-      tileColor: model_saveConfig.getAccent().withOpacity(0.3),
-      contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      tileColor: modelSaveConfig.getAccent().withOpacity(0.3),
+      contentPadding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
       leading: IconButton(
-          icon: model_tasksList.getStatus[index] == true
+          icon: modelTasksList.getStatus[index] == true
               ? Icon(
                   Icons.check_circle_rounded,
                   size: 27,
-                  color: model_saveConfig.getAccent(),
+                  color: modelSaveConfig.getAccent(),
                 )
-              : Icon(
+              : const Icon(
                   Icons.check_circle_outline_rounded,
                   size: 27,
                 ),
-          onPressed: () => model_tasksList.changeStatus(index)),
+          onPressed: () => modelTasksList.changeStatus(index)),
       onTap: () {
         showDialog(
             context: context,
             builder: (_) => viewTask(context, _taskController, _descController,
-                value, index, model_saveConfig, model_tasksList));
+                value, index, modelSaveConfig, modelTasksList));
       },
       trailing: Card(
           elevation: 0,
-          margin: EdgeInsets.only(right: 8),
+          margin: const EdgeInsets.only(right: 8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          color: model_saveConfig.getAccent().withOpacity(0.25),
+          color: modelSaveConfig.getAccent().withOpacity(0.25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -49,7 +49,7 @@ Widget taskCard(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "\t" + value.getDateTime[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13.5,
                       color: Color(0xFF1C1C1C)),
@@ -72,7 +72,7 @@ Widget taskCard(
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
                     decorationThickness: 3,
-                    decorationColor: model_saveConfig.getAccent(),
+                    decorationColor: modelSaveConfig.getAccent(),
                     decorationStyle: TextDecorationStyle.solid),
               ),
             ),
@@ -81,16 +81,16 @@ Widget taskCard(
                 : Container(
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color:
-                                model_saveConfig.getAccent().withOpacity(0.6),
+                            color: modelSaveConfig.getAccent().withOpacity(0.6),
                             width: 2),
                         borderRadius: BorderRadius.circular(10)),
-                    margin: EdgeInsets.only(bottom: 0, right: 5),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                    margin: const EdgeInsets.only(bottom: 0, right: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     child: Text(
-                      model_tasksList.getTag[index],
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      modelTasksList.getTag[index],
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   )
           ],

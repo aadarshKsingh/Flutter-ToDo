@@ -4,16 +4,17 @@ import 'package:letsdoit/utils/tasksList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
 
-class addTask extends StatefulWidget {
+class AddTask extends StatefulWidget {
+  AddTask({Key? key}) : super(key: key);
   @override
-  _addTaskState createState() => _addTaskState();
+  _AddTaskState createState() => _AddTaskState();
 }
 
 _updateTasks(String title, String subtitle, BuildContext context) {
-  Provider.of<tasksList>(context, listen: false).addtaskValue(title, subtitle);
+  Provider.of<TasksList>(context, listen: false).addtaskValue(title, subtitle);
 }
 
-class _addTaskState extends State<addTask> {
+class _AddTaskState extends State<AddTask> {
   TextEditingController? taskContr;
   TextEditingController? taskContr2;
   final _taskKey = GlobalKey<FormState>();
@@ -33,8 +34,8 @@ class _addTaskState extends State<addTask> {
 
   @override
   Widget build(BuildContext context) {
-    var model_tasksList = Provider.of<tasksList>(context, listen: false);
-    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
+    var modelTasksList = Provider.of<TasksList>(context, listen: false);
+    var modelSaveConfig = Provider.of<SaveConfig>(context, listen: false);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -44,32 +45,32 @@ class _addTaskState extends State<addTask> {
         }
       },
       child: Material(
-        color: model_saveConfig.getAccent(),
+        color: modelSaveConfig.getAccent(),
         child: Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 5,
           ),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              model_saveConfig.getGradient()[0],
-              model_saveConfig.getGradient()[1]
+              modelSaveConfig.getGradient()[0],
+              modelSaveConfig.getGradient()[1]
             ], begin: Alignment.bottomLeft, end: Alignment.topRight),
           ),
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10)),
               ),
               leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
-              title: Text(
+              title: const Text(
                 "Add a new task",
                 style: TextStyle(fontSize: 25),
               ),
@@ -81,61 +82,64 @@ class _addTaskState extends State<addTask> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
                       child: TextFormField(
                         style: TextStyle(
-                            color: model_saveConfig.estimateColor(
-                                model_saveConfig.getGradient()[0])),
+                            color: modelSaveConfig.estimateColor(
+                                modelSaveConfig.getGradient()[0])),
                         maxLines: 1,
                         autocorrect: true,
                         autofocus: true,
                         controller: taskContr,
                         validator: (value) {
-                          if (value!.isEmpty)
+                          if (value!.isEmpty) {
                             return "Please enter some text";
-                          else if (tasksList().getTag.contains(value))
+                          } else if (TasksList().getTag.contains(value)) {
                             return "Please add a different task";
-                          else
+                          } else {
                             return null;
+                          }
                         },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.4),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
@@ -143,27 +147,29 @@ class _addTaskState extends State<addTask> {
                           labelText: "Task Title",
                           hintText: "Enter your task",
                           hintStyle: TextStyle(
-                              color: model_saveConfig.estimateColor(
-                                  model_saveConfig.getGradient()[0])),
+                              color: modelSaveConfig.estimateColor(
+                                  modelSaveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
                               fontSize: 17,
-                              color: model_saveConfig.estimateColor(
-                                  model_saveConfig.getGradient()[0])),
+                              color: modelSaveConfig.estimateColor(
+                                  modelSaveConfig.getGradient()[0])),
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
                       child: TextFormField(
                         style: TextStyle(
-                            color: model_saveConfig.estimateColor(
-                                model_saveConfig.getGradient()[0])),
+                            color: modelSaveConfig.estimateColor(
+                                modelSaveConfig.getGradient()[0])),
                         autocorrect: true,
                         maxLines: 7,
                         controller: taskContr2,
@@ -171,18 +177,18 @@ class _addTaskState extends State<addTask> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.4),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: model_saveConfig
+                                color: modelSaveConfig
                                     .estimateColor(
-                                        model_saveConfig.getGradient()[0])
+                                        modelSaveConfig.getGradient()[0])
                                     .withOpacity(0.6),
                                 width: 2),
                             borderRadius: BorderRadius.circular(10),
@@ -190,12 +196,12 @@ class _addTaskState extends State<addTask> {
                           labelText: "Task Description(Optional)",
                           hintText: "Enter your task Description",
                           hintStyle: TextStyle(
-                              color: model_saveConfig.estimateColor(
-                                  model_saveConfig.getGradient()[0])),
+                              color: modelSaveConfig.estimateColor(
+                                  modelSaveConfig.getGradient()[0])),
                           labelStyle: TextStyle(
                             fontSize: 17,
-                            color: model_saveConfig.estimateColor(
-                                model_saveConfig.getGradient()[0]),
+                            color: modelSaveConfig.estimateColor(
+                                modelSaveConfig.getGradient()[0]),
                           ),
                         ),
                       ),
@@ -204,13 +210,13 @@ class _addTaskState extends State<addTask> {
                   SizedBox(
                     height: 40,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(30, 15, 0, 0),
                       child: Text(
                         "Tags : ",
                         style: TextStyle(
                             fontSize: 17,
-                            color: model_saveConfig.estimateColor(
-                                model_saveConfig.getGradient()[0])),
+                            color: modelSaveConfig.estimateColor(
+                                modelSaveConfig.getGradient()[0])),
                       ),
                     ),
                   ),
@@ -224,23 +230,22 @@ class _addTaskState extends State<addTask> {
                           spacing: 10,
                           alignment: WrapAlignment.start,
                           children: List.generate(
-                            model_tasksList.getAvailabeTags.length,
-                            (index) => Consumer<tasksList>(
+                            modelTasksList.getAvailabeTags.length,
+                            (index) => Consumer<TasksList>(
                               builder: (context, value, child) => ChoiceChip(
-                                backgroundColor: model_saveConfig
+                                backgroundColor: modelSaveConfig
                                     .getAccent()
                                     .withOpacity(0.3),
-                                selected:
-                                    model_tasksList.selectedIndex == index,
+                                selected: modelTasksList.selectedIndex == index,
                                 label: Text(
-                                  model_tasksList.getAvailabeTags[index],
+                                  modelTasksList.getAvailabeTags[index],
                                 ),
                                 labelStyle: TextStyle(
-                                    color: model_saveConfig.estimateColor(
-                                        model_saveConfig.getAccent())),
+                                    color: modelSaveConfig.estimateColor(
+                                        modelSaveConfig.getAccent())),
                                 onSelected: (selected) =>
-                                    model_tasksList.changeIndex(index),
-                                selectedColor: model_saveConfig.getAccent(),
+                                    modelTasksList.changeIndex(index),
+                                selectedColor: modelSaveConfig.getAccent(),
                               ),
                             ),
                           ),
@@ -251,10 +256,10 @@ class _addTaskState extends State<addTask> {
                   Center(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: model_saveConfig.getAccent(),
+                        primary: modelSaveConfig.getAccent(),
                         elevation: 10,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 10),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -263,8 +268,8 @@ class _addTaskState extends State<addTask> {
                         "Add",
                         style: TextStyle(
                           fontSize: 25,
-                          color: model_saveConfig
-                              .estimateColor(model_saveConfig.getAccent()),
+                          color: modelSaveConfig
+                              .estimateColor(modelSaveConfig.getAccent()),
                         ),
                       ),
                       onPressed: () {

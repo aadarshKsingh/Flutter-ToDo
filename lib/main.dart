@@ -12,20 +12,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => tasksList()),
-    ChangeNotifierProvider(create: (_) => saveConfig())
-  ], child: home()));
+    ChangeNotifierProvider(create: (_) => TasksList()),
+    ChangeNotifierProvider(create: (_) => SaveConfig())
+  ], child: Home()));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
-class home extends StatefulWidget {
+class Home extends StatefulWidget {
+  Home({Key? key}) : super(key: key);
   @override
-  _homeState createState() => _homeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   Future getConfig() async {
-    await Provider.of<saveConfig>(context, listen: false).readConfig();
+    await Provider.of<SaveConfig>(context, listen: false).readConfig();
   }
 
   @override
@@ -39,45 +40,47 @@ class _homeState extends State<home> {
     return MaterialApp(
       theme: ThemeData(
           textTheme: GoogleFonts.rubikTextTheme(),
-          primaryColor: Provider.of<saveConfig>(context).getAccent()),
-      home: Scaffold(body: letsdoit()),
+          primaryColor: Provider.of<SaveConfig>(context).getAccent()),
+      home: Scaffold(body: LetsDoIt()),
     );
   }
 }
 
-class letsdoit extends StatefulWidget {
+class LetsDoIt extends StatefulWidget {
+  LetsDoIt({Key? key}) : super(key: key);
+
   @override
-  _letsdoitState createState() => _letsdoitState();
+  _LetsDoItState createState() => _LetsDoItState();
 }
 
-class _letsdoitState extends State<letsdoit> {
+class _LetsDoItState extends State<LetsDoIt> {
   @override
   Widget build(BuildContext context) {
-    var model_tasksList = Provider.of<tasksList>(context, listen: false);
-    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
+    var modelTasksList = Provider.of<TasksList>(context, listen: false);
+    var modelSaveConfig = Provider.of<SaveConfig>(context, listen: false);
     return Scaffold(
         extendBodyBehindAppBar: true,
         floatingActionButton: FloatingActionButton.extended(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: model_saveConfig.getAccent(),
+          backgroundColor: modelSaveConfig.getAccent(),
           icon: Icon(Icons.create,
               color:
-                  model_saveConfig.estimateColor(model_saveConfig.getAccent())),
+                  modelSaveConfig.estimateColor(modelSaveConfig.getAccent())),
           label: Text(
             "Add Task",
             style: TextStyle(
                 fontSize: 20,
-                color: model_saveConfig
-                    .estimateColor(model_saveConfig.getAccent())),
+                color:
+                    modelSaveConfig.estimateColor(modelSaveConfig.getAccent())),
           ),
           elevation: 20,
           onPressed: () async {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => addTask(),
+                builder: (BuildContext context) => AddTask(),
               ),
             );
           },
@@ -86,31 +89,31 @@ class _letsdoitState extends State<letsdoit> {
         appBar: AppBar(
           elevation: 10,
           toolbarHeight: 60.2,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10)),
           ),
-          title: Text(
+          title: const Text(
             "Lets Do It!",
             style: TextStyle(fontSize: 25),
           ),
           actions: [
-            Consumer<tasksList>(
+            Consumer<TasksList>(
               builder: (context, value, child) {
                 return IconButton(
-                    icon: Icon(Icons.done_all_rounded),
+                    icon: const Icon(Icons.done_all_rounded),
                     onPressed: () {
-                      model_tasksList.allTasksDone();
+                      modelTasksList.allTasksDone();
                     });
               },
             ),
-            Consumer<tasksList>(
+            Consumer<TasksList>(
               builder: (context, value, child) {
                 return IconButton(
-                    icon: Icon(Icons.clear_all_rounded),
+                    icon: const Icon(Icons.clear_all_rounded),
                     onPressed: () {
-                      Provider.of<tasksList>(context, listen: false)
+                      Provider.of<TasksList>(context, listen: false)
                           .removeall();
                     });
               },
@@ -130,19 +133,19 @@ class _letsdoitState extends State<letsdoit> {
             ),
           ],
         ),
-        body: taskPage());
+        body: TaskPage());
   }
 
   void selected(String choice) async {
     switch (choice) {
       case 'Settings':
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => settings()));
+            context, MaterialPageRoute(builder: (context) => Settings()));
 
         break;
       case 'About':
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => about()));
+            context, MaterialPageRoute(builder: (context) => About()));
         break;
       default:
         return null;

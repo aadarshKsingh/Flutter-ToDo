@@ -6,23 +6,14 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:letsdoit/constants/Constants.dart';
 
-class tasksList extends ChangeNotifier {
+class TasksList extends ChangeNotifier {
   List<String> _taskList = [];
   List<bool> _taskStatus = [];
   List<String> _taskDescList = [];
   List<String> _taskDateTime = [];
   List<String> _tag = [];
-
-  List<String> _availableTags = [
-    'None',
-    'Work',
-    'Hobby',
-    'Leisure',
-    'Note',
-    'Remind',
-    'Important',
-  ];
 
   int selectedIndex = 0;
   changeIndex(int index) {
@@ -50,7 +41,7 @@ class tasksList extends ChangeNotifier {
     _taskStatus.add(false);
     _taskDescList.add(subtitle);
     _taskDateTime.add(getCurrentDateTime());
-    _tag.add(_availableTags[selectedIndex]);
+    _tag.add(Constants.availableTags[selectedIndex]);
     selectedIndex = 0;
     writeContent();
     notifyListeners();
@@ -71,7 +62,7 @@ class tasksList extends ChangeNotifier {
     _taskList[index] = updatedTask;
     _taskDescList[index] = updatedDesc;
     _taskDateTime[index] = getCurrentDateTime();
-    _tag[index] = _availableTags[selectedIndex];
+    _tag[index] = Constants.availableTags[selectedIndex];
     selectedIndex = 0;
     notifyListeners();
     clearJSON();
@@ -167,5 +158,5 @@ class tasksList extends ChangeNotifier {
   List<String> get getTaskDescList => _taskDescList;
   List<String> get getDateTime => _taskDateTime;
   List<String> get getTag => _tag;
-  List<String> get getAvailabeTags => _availableTags;
+  List<String> get getAvailabeTags => Constants.availableTags;
 }

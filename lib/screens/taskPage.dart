@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:letsdoit/screens/viewTask.dart';
 import 'package:letsdoit/utils/gridCard.dart';
 import 'package:letsdoit/utils/taskCard.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:letsdoit/utils/tasksList.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
-import 'package:letsdoit/screens/settings.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class taskPage extends StatefulWidget {
+class TaskPage extends StatefulWidget {
+  TaskPage({Key? key}) : super(key: key);
   @override
-  _taskPageState createState() => _taskPageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _taskPageState extends State<taskPage> {
+class _TaskPageState extends State<TaskPage> {
   Future getData() async {
-    await Provider.of<tasksList>(context, listen: false).readContent();
+    await Provider.of<TasksList>(context, listen: false).readContent();
   }
 
   TextEditingController? _taskController;
@@ -41,16 +40,16 @@ class _taskPageState extends State<taskPage> {
 
   @override
   Widget build(BuildContext context) {
-    var model_tasksList = Provider.of<tasksList>(context, listen: false);
-    var model_saveConfig = Provider.of<saveConfig>(context, listen: false);
+    var modelTasksList = Provider.of<TasksList>(context, listen: false);
+    var modelSaveConfig = Provider.of<SaveConfig>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(
         top: 5,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
-          model_saveConfig.getGradient()[0],
-          model_saveConfig.getGradient()[1]
+          modelSaveConfig.getGradient()[0],
+          modelSaveConfig.getGradient()[1]
         ], begin: Alignment.bottomLeft, end: Alignment.topRight),
       ),
       child: Scaffold(
@@ -59,11 +58,10 @@ class _taskPageState extends State<taskPage> {
         body: Center(
           child: Column(children: [
             Expanded(
-              child: Consumer<tasksList>(builder: (context, value, child) {
+              child: Consumer<TasksList>(builder: (context, value, child) {
                 return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 400),
+                  duration: const Duration(milliseconds: 400),
                   child: value.getTaskList.length == 0
-                      //<-------------------Empty Column with no Tasks----------------->
                       ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,9 +74,7 @@ class _taskPageState extends State<taskPage> {
                             ],
                           ),
                         )
-                      //<--------------------Tasks List Here------------------>
-
-                      : model_saveConfig.getView()
+                      : modelSaveConfig.getView()
                           ? ListView.builder(
                               itemCount: value.getTaskList.length,
                               itemBuilder: (context, index) {
@@ -87,7 +83,7 @@ class _taskPageState extends State<taskPage> {
                                     DismissDirection.startToEnd: 0.7,
                                     DismissDirection.endToStart: 0.7
                                   },
-                                  background: Padding(
+                                  background: const Padding(
                                     child: Text(
                                       "Remove Task",
                                       style: TextStyle(
@@ -103,7 +99,7 @@ class _taskPageState extends State<taskPage> {
                                         30,
                                         30,
                                         0),
-                                    child: Text(
+                                    child: const Text(
                                       "Remove Task",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -112,22 +108,22 @@ class _taskPageState extends State<taskPage> {
                                   ),
                                   key: ValueKey(value.getTaskList[index]),
                                   onDismissed: (direction) {
-                                    model_tasksList.removeTaskValue(index);
+                                    modelTasksList.removeTaskValue(index);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     child: Card(
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        margin: EdgeInsets.symmetric(
+                                        margin: const EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 0.2),
                                         elevation: 3,
                                         child: taskCard(
                                             context,
-                                            model_saveConfig,
-                                            model_tasksList,
+                                            modelSaveConfig,
+                                            modelTasksList,
                                             index,
                                             value,
                                             _descController,
@@ -139,7 +135,7 @@ class _taskPageState extends State<taskPage> {
                               padding: const EdgeInsets.all(5.0),
                               child: StaggeredGridView.countBuilder(
                                 crossAxisCount: 2,
-                                itemCount: model_tasksList.getTaskList.length,
+                                itemCount: modelTasksList.getTaskList.length,
                                 itemBuilder: (context, index) => Dismissible(
                                   key: ValueKey(value.getTaskList[index]),
                                   dismissThresholds: {
@@ -147,10 +143,10 @@ class _taskPageState extends State<taskPage> {
                                     DismissDirection.endToStart: 0.7
                                   },
                                   background: Container(
-                                    padding: EdgeInsets.only(left: 10),
+                                    padding: const EdgeInsets.only(left: 10),
                                     height: double.infinity,
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
+                                    child: const Text(
                                       "Remove Task",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -158,10 +154,10 @@ class _taskPageState extends State<taskPage> {
                                     ),
                                   ),
                                   secondaryBackground: Container(
-                                    padding: EdgeInsets.only(right: 10),
+                                    padding: const EdgeInsets.only(right: 10),
                                     height: double.infinity,
                                     alignment: Alignment.centerRight,
-                                    child: Text(
+                                    child: const Text(
                                       "Remove Task",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -169,21 +165,21 @@ class _taskPageState extends State<taskPage> {
                                     ),
                                   ),
                                   onDismissed: (direction) {
-                                    model_tasksList.removeTaskValue(index);
+                                    modelTasksList.removeTaskValue(index);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(),
+                                    padding: const EdgeInsets.symmetric(),
                                     child: Card(
                                         elevation: 3,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        margin: EdgeInsets.symmetric(
+                                        margin: const EdgeInsets.symmetric(
                                             horizontal: 2, vertical: 2),
                                         child: gridCard(
                                             context,
-                                            model_saveConfig,
-                                            model_tasksList,
+                                            modelSaveConfig,
+                                            modelTasksList,
                                             index,
                                             value,
                                             _descController,
@@ -191,7 +187,7 @@ class _taskPageState extends State<taskPage> {
                                   ),
                                 ),
                                 staggeredTileBuilder: (index) =>
-                                    StaggeredTile.fit(1),
+                                    const StaggeredTile.fit(1),
                                 mainAxisSpacing: 4.0,
                                 crossAxisSpacing: 4.0,
                               ),

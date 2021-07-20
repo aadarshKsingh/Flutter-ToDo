@@ -2,31 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
 import 'package:provider/provider.dart';
 
-class about extends StatelessWidget {
+class About extends StatelessWidget {
+  About({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Provider.of<saveConfig>(context).getAccent(),
+      color: Provider.of<SaveConfig>(context).getAccent(),
       child: Scaffold(
         appBar: AppBar(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10)),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
-          title: Text("About"),
+          title: const Text("About"),
         ),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children: const [
               SizedBox(
                 height: 50,
               ),

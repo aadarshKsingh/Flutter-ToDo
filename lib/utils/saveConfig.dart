@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
-class saveConfig extends ChangeNotifier {
+class SaveConfig extends ChangeNotifier {
   String accent = 'Color(0xFFe53935)';
   String background1 = 'Color(0xFFff9966)';
   String background2 = 'Color(0xFFff5e62)';
@@ -32,9 +32,9 @@ class saveConfig extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeBackground(Color Color1, Color Color2) {
-    background1 = Color1.toString();
-    background2 = Color2.toString();
+  changeBackground(Color color1, Color color2) {
+    background1 = color1.toString();
+    background2 = color2.toString();
     writeConfig();
     notifyListeners();
   }

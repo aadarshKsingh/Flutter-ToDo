@@ -9,22 +9,22 @@ Widget editTask(
     BuildContext context,
     TextEditingController? _taskController,
     TextEditingController? _descController,
-    tasksList value,
+    TasksList value,
     int index,
-    saveConfig model_saveConfig,
-    tasksList model_tasksList) {
+    SaveConfig modelSaveConfig,
+    TasksList modelTasksList) {
   _taskController!.text = value.getTaskList[index];
   _descController!.text = value.getTaskDescList[index];
-  model_tasksList.selectedIndex =
-      model_tasksList.getAvailabeTags.indexOf(model_tasksList.getTag[index]);
+  modelTasksList.selectedIndex =
+      modelTasksList.getAvailabeTags.indexOf(modelTasksList.getTag[index]);
 
   return SimpleDialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     children: [
-      Align(
+      const Align(
         alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, top: 10),
+        child: const Padding(
+          padding: EdgeInsets.only(left: 15.0, top: 10),
           child: Text(
             "Edit Task",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -41,45 +41,46 @@ Widget editTask(
           key: _editKey,
           child: Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            columnWidths: {
+            columnWidths: const {
               0: FlexColumnWidth(1),
               1: FlexColumnWidth(0.5),
               2: FlexColumnWidth(3)
             },
             children: [
               TableRow(children: [
-                Text("Task Title"),
-                Text(":"),
+                const Text("Task Title"),
+                const Text(":"),
                 TextFormField(
                   validator: (value) {
-                    if (value!.isEmpty)
+                    if (value!.isEmpty) {
                       return "Please enter some text";
-                    else
+                    } else {
                       return null;
+                    }
                   },
                   controller: _taskController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: model_saveConfig.getAccent().withOpacity(0.4),
+                          color: modelSaveConfig.getAccent().withOpacity(0.4),
                           width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          color: modelSaveConfig.getAccent().withOpacity(0.6),
                           width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          color: modelSaveConfig.getAccent().withOpacity(0.6),
                           width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: model_saveConfig.getAccent().withOpacity(0.6),
+                          color: modelSaveConfig.getAccent().withOpacity(0.6),
                           width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -88,8 +89,8 @@ Widget editTask(
               ]),
               TableRow(
                 children: [
-                  Text("Description"),
-                  Text(":"),
+                  const Text("Description"),
+                  const Text(":"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextFormField(
@@ -100,28 +101,28 @@ Widget editTask(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color:
-                                  model_saveConfig.getAccent().withOpacity(0.4),
+                                  modelSaveConfig.getAccent().withOpacity(0.4),
                               width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color:
-                                  model_saveConfig.getAccent().withOpacity(0.6),
+                                  modelSaveConfig.getAccent().withOpacity(0.6),
                               width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color:
-                                  model_saveConfig.getAccent().withOpacity(0.6),
+                                  modelSaveConfig.getAccent().withOpacity(0.6),
                               width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color:
-                                  model_saveConfig.getAccent().withOpacity(0.6),
+                                  modelSaveConfig.getAccent().withOpacity(0.6),
                               width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -132,27 +133,27 @@ Widget editTask(
               ),
               TableRow(
                 children: [
-                  Text('Task Tag'),
-                  Text(":"),
+                  const Text('Task Tag'),
+                  const Text(":"),
                   Wrap(
                     spacing: 10,
                     alignment: WrapAlignment.start,
                     children: List.generate(
-                      model_tasksList.getAvailabeTags.length,
-                      (index) => Consumer<tasksList>(
+                      modelTasksList.getAvailabeTags.length,
+                      (index) => Consumer<TasksList>(
                         builder: (context, value, child) => ChoiceChip(
                           backgroundColor:
-                              model_saveConfig.getAccent().withOpacity(0.3),
-                          selected: model_tasksList.selectedIndex == index,
+                              modelSaveConfig.getAccent().withOpacity(0.3),
+                          selected: modelTasksList.selectedIndex == index,
                           label: Text(
-                            model_tasksList.getAvailabeTags[index],
+                            modelTasksList.getAvailabeTags[index],
                           ),
                           labelStyle: TextStyle(
-                              color: model_saveConfig
-                                  .estimateColor(model_saveConfig.getAccent())),
+                              color: modelSaveConfig
+                                  .estimateColor(modelSaveConfig.getAccent())),
                           onSelected: (selected) =>
-                              model_tasksList.changeIndex(index),
-                          selectedColor: model_saveConfig.getAccent(),
+                              modelTasksList.changeIndex(index),
+                          selectedColor: modelSaveConfig.getAccent(),
                         ),
                       ),
                     ),
@@ -171,18 +172,18 @@ Widget editTask(
         children: [
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: model_saveConfig.getAccent(),
+                primary: modelSaveConfig.getAccent(),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Update",
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
                 if (_editKey.currentState!.validate()) {
-                  model_tasksList.updateTask(
+                  modelTasksList.updateTask(
                       _taskController.text, _descController.text, index);
 
                   Navigator.pop(context);
@@ -190,12 +191,12 @@ Widget editTask(
               }),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: model_saveConfig.getAccent(),
+                primary: modelSaveConfig.getAccent(),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Cancel",
                 style: TextStyle(color: Colors.white),
               ),
