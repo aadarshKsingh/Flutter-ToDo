@@ -22,18 +22,20 @@ Widget gridCard(context, modelSaveConfig, modelTasksList, index, value,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    modelTasksList.getTaskList[index],
-                    softWrap: true,
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        decoration: modelTasksList.getStatus[index]
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                        decorationThickness: 3,
-                        decorationColor: modelSaveConfig.getAccent(),
-                        decorationStyle: TextDecorationStyle.solid),
+                  Flexible(
+                    child: Text(
+                      modelTasksList.getTaskList[index],
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          decoration: modelTasksList.getStatus[index]
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          decorationThickness: 3,
+                          decorationColor: modelSaveConfig.getAccent(),
+                          decorationStyle: TextDecorationStyle.solid),
+                    ),
                   ),
                   IconButton(
                     constraints: const BoxConstraints(),
