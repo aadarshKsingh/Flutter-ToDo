@@ -123,7 +123,8 @@ class _AddTaskState extends State<AddTask> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Please enter some text";
-                            } else if (TasksList().getTag.contains(value)) {
+                            } else if (modelTasksList.getTaskList
+                                .contains(value)) {
                               return "Please add a different task";
                             } else {
                               return null;
