@@ -1,9 +1,6 @@
-import 'package:letsdoit/screens//about.dart';
 import 'package:letsdoit/screens/addTask.dart';
 import 'package:letsdoit/screens/taskPage.dart';
-import 'package:letsdoit/screens/settings.dart';
 import 'package:letsdoit/utils/tasksList.dart';
-import 'package:letsdoit/constants/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:letsdoit/utils/saveConfig.dart';
@@ -56,7 +53,6 @@ class LetsDoIt extends StatefulWidget {
 class _LetsDoItState extends State<LetsDoIt> {
   @override
   Widget build(BuildContext context) {
-    var modelTasksList = Provider.of<TasksList>(context, listen: false);
     var modelSaveConfig = Provider.of<SaveConfig>(context, listen: false);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -86,69 +82,6 @@ class _LetsDoItState extends State<LetsDoIt> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        appBar: AppBar(
-          elevation: 10,
-          toolbarHeight: 60.2,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
-          ),
-          title: const Text(
-            "Lets Do It!",
-            style: TextStyle(fontSize: 25),
-          ),
-          actions: [
-            Consumer<TasksList>(
-              builder: (context, value, child) {
-                return IconButton(
-                    icon: const Icon(Icons.done_all_rounded),
-                    onPressed: () {
-                      modelTasksList.allTasksDone();
-                    });
-              },
-            ),
-            Consumer<TasksList>(
-              builder: (context, value, child) {
-                return IconButton(
-                    icon: const Icon(Icons.clear_all_rounded),
-                    onPressed: () {
-                      Provider.of<TasksList>(context, listen: false)
-                          .removeall();
-                    });
-              },
-            ),
-            Builder(
-              builder: (context) => PopupMenuButton<String>(
-                onSelected: selected,
-                itemBuilder: (context) {
-                  return Constants.choices.map((String choice) {
-                    return PopupMenuItem(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-                },
-              ),
-            ),
-          ],
-        ),
         body: TaskPage());
-  }
-
-  void selected(String choice) async {
-    switch (choice) {
-      case 'Settings':
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Settings()));
-
-        break;
-      case 'About':
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => About()));
-        break;
-      default:
-        return null;
-    }
   }
 }
