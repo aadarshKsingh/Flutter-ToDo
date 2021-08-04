@@ -138,8 +138,8 @@ class _TaskPageState extends State<TaskPage> {
                             delegate: SliverChildBuilderDelegate(
                                 (context, index) => Dismissible(
                                       dismissThresholds: {
-                                        DismissDirection.startToEnd: 0.7,
-                                        DismissDirection.endToStart: 0.7
+                                        DismissDirection.startToEnd: 0.3,
+                                        DismissDirection.endToStart: 0.3
                                       },
                                       background: const Padding(
                                         child: Text(
@@ -154,7 +154,7 @@ class _TaskPageState extends State<TaskPage> {
                                       secondaryBackground: Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             MediaQuery.of(context).size.width -
-                                                140,
+                                                170,
                                             30,
                                             30,
                                             0),

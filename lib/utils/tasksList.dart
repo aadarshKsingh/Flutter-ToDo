@@ -52,7 +52,7 @@ class TasksList extends ChangeNotifier {
     _taskStatus.removeAt(index);
     _taskDescList.removeAt(index);
     _taskDateTime.removeAt(index);
-    _tag.remove(index);
+    _tag.removeAt(index);
     clearJSON();
     writeContent();
     notifyListeners();
